@@ -76,13 +76,29 @@ const SignUp = ({ navigation }) => {
     async function signIn() {
 
         const checkPassword = checkPasswordValidity(password)
-        if (!checkPassword) {
-            console.log('Password Validation secceed')
-        } else {
-            return showMessage({
-                message: checkPassword,
-                type: "danger",
-            });
+        {
+            if (type == 'email') {
+                const checkPassword = checkPasswordValidity(password)
+                if (!checkPassword) {
+                    // console.log('Password Validation secceed')
+                } else {
+                    return showMessage({
+                        message: checkPassword,
+                        type: "danger",
+                    });
+                }
+            } else {
+                setTimeout(() => {
+                    navigation.navigate('OTP')
+
+                }, 2000)
+
+                return showMessage({
+                    message: 'Verification code send to your phone',
+                    type: "success",
+                });
+            }
+
         }
         try {
 
@@ -118,6 +134,8 @@ const SignUp = ({ navigation }) => {
 
 
 
+    // const type='email';
+    const type = 'phone';
 
 
     // const [checked, setChecked] = useState(false);
@@ -126,138 +144,202 @@ const SignUp = ({ navigation }) => {
             <FlashMessage position="top" />
             <StatusBar backgroundColor={'black'} barStyle="default" />
             <View style={{ height: "100%", width: '100%', backgroundColor: 'black' }}>
-                <View style={[{ height: '25%', width: '80%' }, tw`m-auto`]}>
-                    <View style={tw`m-auto`}>
-                        <Image
-                            style={tw`w-50 h-20 mx-auto my-auto`}
-                            source={{
-                                uri: 'https://res.cloudinary.com/drtldr4nl/image/upload/v1672294964/showsup/showzup_logo_1_eouboh.png',
-                            }}
-                        />
-                        <Text style={tw`text-2xl text-white text-center`}>CREATE ACCOUNT</Text>
-                    </View>
-                </View>
-
-
-                <ScrollView style={[{ height: '60%', width: '100%' }, tw`m-auto`]}>
-                    <View style={[tw`m-auto border-2 border-[#fff] rounded-full p-1 mb-5 `]}>
-                        <TouchableOpacity>
-                            <Image
-                                style={tw`h-15 w-15`}
-                                source={{
-                                    uri: null || 'https://res.cloudinary.com/drtldr4nl/image/upload/v1672320074/showsup/Vector_a8ykvs.png',
-                                }}
-                            />
-                            <View>
-                                <Image
-                                    style={tw`h-6 w-6 absolute ml-13 -mt-5 bg-white rounded-lg`}
-                                    source={{
-                                        uri: 'https://res.cloudinary.com/drtldr4nl/image/upload/v1672336778/showsup/111_j18yvb.png'
-                                    }}
-                                />
+                {type === 'email' ?
+                    <>
+                        <ScrollView style={[{ height: '60%', width: '100%' }, tw`m-auto`]}>
+                            <View style={[{ paddingTop: '15%' }, tw`m-auto`]}>
+                                <View style={tw`m-auto`}>
+                                    <Image
+                                        style={tw`w-50 h-20 mx-auto my-auto`}
+                                        source={{
+                                            uri: 'https://res.cloudinary.com/drtldr4nl/image/upload/v1672294964/showsup/showzup_logo_1_eouboh.png',
+                                        }}
+                                    />
+                                    <Text style={tw`text-2xl text-white text-center`}>CREATE ACCOUNT</Text>
+                                </View>
                             </View>
-                        </TouchableOpacity>
-                    </View>
 
-                    <View style={[tw`my-2 border-gray-300 border-b m-auto`, { borderColor: 'gray', width: '90%' }]}>
-                        <TextInput
-                            style={tw`w-full text-xl text-white`}
-                            placeholder="Name"
-                            placeholderTextColor={'white'}
-                            keyboardType='default'
-                            // autoFocus={true}
-                            defaultValue={name}
-                            onChangeText={(newName) => setName(newName)}
-                        // style={styles.input}
-                        // onChangeText={setPassword}
-                        // value={password}
-                        />
-                    </View>
-                    <View style={[tw`my-2 border-gray-300 border-b m-auto`, { borderColor: valEmail ? 'red' : 'gray', width: '90%' }]}>
-                        <TextInput
-                            style={tw`w-full text-xl text-white`}
-                            placeholder="Email"
-                            placeholderTextColor={'white'}
-                            keyboardType='email-address'
-                            textContentType='emailAddress'
-                            autoFocus={true}
-                            defaultValue={email}
-                            onChangeText={(newEmail) => emailValidations(newEmail)}
-                        // style={styles.input}
-                        // onChangeText={setPassword}
-                        // value={password}
-                        />
-                    </View>
-                    <View style={[tw`my-2 border-gray-300 border-b m-auto`, { borderColor: 'gray', width: '90%' }]}>
-                        <TextInput
-                            style={tw`w-full text-xl text-white`}
-                            placeholder="Phone Number"
-                            placeholderTextColor={'white'}
-                            keyboardType='numeric'
-                            textContentType='telephoneNumber'
-                            // autoFocus={true}
-                            defaultValue={phone}
-                            onChangeText={(newPhone) => setPhone(newPhone)}
-                        // style={styles.input}
-                        // onChangeText={setPassword}
-                        // value={password}
-                        />
-                    </View>
-                    <View style={[tw`flex-row my-2 border-gray-300 border-b m-auto`, { position: 'relative', alignItems: 'center', borderColor: 'gray', width: '90%' }]}>
-                        <TextInput
-                            style={tw`w-full text-xl text-white`}
-                            placeholder="Password"
-                            placeholderTextColor={'white'}
-                            secureTextEntry={seePassword}
-                            value={password}
-                            onChangeText={(newPass) => setPassword(newPass)}
-                        // value={password}
-                        // onChange={(e) => setPassword(e.target.value)}
-                        // style={styles.input}
-                        // onChangeText={setPassword}
-                        // value={password}
-                        />
-                        <TouchableOpacity onPress={() => setSeePassword(!seePassword)} style={[{ position: 'absolute', right: 0, paddingRight: 10 }]}>
-                            <Ionicons name={seePassword ? 'eye' : 'eye-off'} size={23} color={'white'} />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={[tw`flex-row my-2 border-gray-300 border-b m-auto`, { position: 'relative', alignItems: 'center', borderColor: 'gray', width: '90%' }]}>
-                        <TextInput
-                            style={tw`w-full text-xl text-white`}
-                            placeholder="Confirm Password"
-                            placeholderTextColor={'white'}
-                            secureTextEntry={seePassword}
-                            value={conformPass}
-                            onChangeText={(newPass) => setConfirmPass(newPass)}
-                        // value={password}
-                        // onChange={(e) => setPassword(e.target.value)}
-                        // style={styles.input}
-                        // onChangeText={setPassword}
-                        // value={password}
-                        />
-                        <TouchableOpacity onPress={() => setSeePassword(!seePassword)} style={[{ position: 'absolute', right: 0, paddingRight: 10 }]}>
-                            <Ionicons name={seePassword ? 'eye' : 'eye-off'} size={23} color={'white'} />
-                        </TouchableOpacity>
-                    </View>
-                </ScrollView>
-                <View style={[{ height: '15%', width: '90%' }, tw`m-auto my-2`]}>
-                    <View style={tw`my-auto`}>
-                        {
-                            email == '' || password == '' || conformPass == '' || valEmail == true ?
-                                <TouchableOpacity disabled onPress={signIn}>
-                                    <View style={tw`bg-gray-700 rounded-full h-14`}>
-                                        <Text style={tw`text-white text-2xl mx-auto my-auto`}>Sign up</Text>
-                                    </View>
-                                </TouchableOpacity> :
-                                <TouchableOpacity onPress={signIn}>
-                                    <View style={tw`bg-[#FF6600] rounded-full h-14`}>
-                                        <Text style={tw`text-white text-2xl mx-auto my-auto`}>Sign up</Text>
+
+                            <View style={[tw`m-auto border-2 border-[#fff] rounded-full p-1 my-5 `]}>
+                                <TouchableOpacity>
+                                    <Image
+                                        style={tw`h-15 w-15`}
+                                        source={{
+                                            uri: null || 'https://res.cloudinary.com/drtldr4nl/image/upload/v1672320074/showsup/Vector_a8ykvs.png',
+                                        }}
+                                    />
+                                    <View>
+                                        <Image
+                                            style={tw`h-6 w-6 absolute ml-13 -mt-5 bg-white rounded-lg`}
+                                            source={{
+                                                uri: 'https://res.cloudinary.com/drtldr4nl/image/upload/v1672336778/showsup/111_j18yvb.png'
+                                            }}
+                                        />
                                     </View>
                                 </TouchableOpacity>
-                        }
+                            </View>
 
-                    </View>
-                </View>
+                            <View style={[tw`my-2 border-gray-300 border-b m-auto`, { borderColor: 'gray', width: '90%' }]}>
+                                <TextInput
+                                    style={tw`w-full text-xl text-white`}
+                                    placeholder="Name"
+                                    placeholderTextColor={'white'}
+                                    keyboardType='default'
+                                    // autoFocus={true}
+                                    defaultValue={name}
+                                    onChangeText={(newName) => setName(newName)}
+                                // style={styles.input}
+                                // onChangeText={setPassword}
+                                // value={password}
+                                />
+                            </View>
+                            <View style={[tw`my-2 border-gray-300 border-b m-auto`, { borderColor: valEmail ? 'red' : 'gray', width: '90%' }]}>
+                                <TextInput
+                                    style={tw`w-full text-xl text-white`}
+                                    placeholder="Email"
+                                    placeholderTextColor={'white'}
+                                    keyboardType='email-address'
+                                    textContentType='emailAddress'
+                                    // autoFocus={true}
+                                    defaultValue={email}
+                                    onChangeText={(newEmail) => emailValidations(newEmail)}
+                                // style={styles.input}
+                                // onChangeText={setPassword}
+                                // value={password}
+                                />
+                            </View>
+                            <View style={[tw`my-2 border-gray-300 border-b m-auto`, { borderColor: 'gray', width: '90%' }]}>
+                                <TextInput
+                                    style={tw`w-full text-xl text-white`}
+                                    placeholder="Phone Number"
+                                    placeholderTextColor={'white'}
+                                    keyboardType='numeric'
+                                    textContentType='telephoneNumber'
+                                    // autoFocus={true}
+                                    defaultValue={phone}
+                                    onChangeText={(newPhone) => setPhone(newPhone)}
+                                // style={styles.input}
+                                // onChangeText={setPassword}
+                                // value={password}
+                                />
+                            </View>
+                            <View style={[tw`flex-row my-2 border-gray-300 border-b m-auto`, { position: 'relative', alignItems: 'center', borderColor: 'gray', width: '90%' }]}>
+                                <TextInput
+                                    style={tw`w-full text-xl text-white`}
+                                    placeholder="Password"
+                                    placeholderTextColor={'white'}
+                                    secureTextEntry={seePassword}
+                                    value={password}
+                                    onChangeText={(newPass) => setPassword(newPass)}
+                                // value={password}
+                                // onChange={(e) => setPassword(e.target.value)}
+                                // style={styles.input}
+                                // onChangeText={setPassword}
+                                // value={password}
+                                />
+                                <TouchableOpacity onPress={() => setSeePassword(!seePassword)} style={[{ position: 'absolute', right: 0, paddingRight: 10 }]}>
+                                    <Ionicons name={seePassword ? 'eye' : 'eye-off'} size={23} color={'white'} />
+                                </TouchableOpacity>
+                            </View>
+                            <View style={[tw`flex-row my-2 border-gray-300 border-b m-auto`, { position: 'relative', alignItems: 'center', borderColor: 'gray', width: '90%' }]}>
+                                <TextInput
+                                    style={tw`w-full text-xl text-white`}
+                                    placeholder="Confirm Password"
+                                    placeholderTextColor={'white'}
+                                    secureTextEntry={seePassword}
+                                    value={conformPass}
+                                    onChangeText={(newPass) => setConfirmPass(newPass)}
+                                // value={password}
+                                // onChange={(e) => setPassword(e.target.value)}
+                                // style={styles.input}
+                                // onChangeText={setPassword}
+                                // value={password}
+                                />
+                                <TouchableOpacity onPress={() => setSeePassword(!seePassword)} style={[{ position: 'absolute', right: 0, paddingRight: 10 }]}>
+                                    <Ionicons name={seePassword ? 'eye' : 'eye-off'} size={23} color={'white'} />
+                                </TouchableOpacity>
+                            </View>
+                        </ScrollView>
+                        <View style={[{ height: '15%', width: '90%' }, tw`m-auto my-2`]}>
+                            <View style={tw`my-auto`}>
+                                {
+                                    email == '' || password == '' || conformPass == '' || valEmail == true ?
+                                        <TouchableOpacity disabled onPress={signIn}>
+                                            <View style={tw`bg-gray-700 rounded-full h-14`}>
+                                                <Text style={tw`text-white text-2xl mx-auto my-auto`}>Sign up</Text>
+                                            </View>
+                                        </TouchableOpacity> :
+                                        <TouchableOpacity onPress={signIn}>
+                                            <View style={tw`bg-[#FF6600] rounded-full h-14`}>
+                                                <Text style={tw`text-white text-2xl mx-auto my-auto`}>Sign up</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                }
+
+                            </View>
+                        </View>
+                    </>
+                    :
+                    <>
+                        <View style={[{ height: '40%', width: '80%' }, tw`m-auto`]}>
+                            <View style={tw`m-auto`}>
+                                <Image
+                                    style={tw`w-50 h-20 mx-auto my-auto`}
+                                    source={{
+                                        uri: 'https://res.cloudinary.com/drtldr4nl/image/upload/v1672294964/showsup/showzup_logo_1_eouboh.png',
+                                    }}
+                                />
+                                <Text style={tw`text-2xl text-white text-center`}>LET'S SIGN IN</Text>
+                            </View>
+                        </View>
+
+
+                        <ScrollView style={[{ height: '40%', width: '100%' }, tw`m-auto`]}>
+
+                            {/* {type=='email'? */}
+                            <View style={tw`my-auto`}>
+
+                                <View style={[tw`my-2 border-gray-300 border-b m-auto flex-row`, { borderColor: valEmail ? 'red' : 'gray', width: '90%' }]}>
+                                    <Text style={tw`text-white text-xl my-auto`}>+91</Text>
+                                    <TextInput
+                                        style={tw`w-full text-xl text-white`}
+                                        placeholder="Phone Number"
+                                        placeholderTextColor={'rgba(210, 210, 210, 0.5)'}
+                                        keyboardType='numeric'
+                                        textContentType='telephoneNumber'
+                                        autoFocus={true}
+                                        defaultValue={phone}
+                                        onChangeText={(newPhone) => setPhone(newPhone)}
+                                    // style={styles.input}
+                                    // onChangeText={setPassword}
+                                    // value={password}
+                                    />
+                                </View>
+                            </View>
+                            {/* :
+                    
+                        
+                    } */}
+                        </ScrollView>
+                        <View style={[{ height: '20%', width: '90%' }, tw`m-auto my-2`]}>
+                            <View style={tw`my-auto`}>
+                                {
+                                    phone.length !== 10 ?
+                                        <TouchableOpacity disabled onPress={signIn}>
+                                            <View style={tw`bg-gray-700 rounded-full h-14`}>
+                                                <Text style={tw`text-white text-2xl mx-auto my-auto`}>VERIFY</Text>
+                                            </View>
+                                        </TouchableOpacity> :
+                                        <TouchableOpacity onPress={signIn}>
+                                            <View style={tw`bg-[#FF6600] rounded-full h-14`}>
+                                                <Text style={tw`text-white text-2xl mx-auto my-auto`}>VERIFY</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                }
+                            </View>
+                        </View>
+                    </>
+                }
 
             </View>
 

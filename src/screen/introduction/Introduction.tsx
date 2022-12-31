@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useDispatch } from 'react-redux'
 import { checkLogin, logout } from '../../store/authReducer'
 
-const Introduction = ({ }) => {
+const Introduction = ({ navigation }) => {
     const dispatch = useDispatch()
 
     const retrieveData = async () => {
@@ -20,7 +20,7 @@ const Introduction = ({ }) => {
 
             } else {
                 // dispatch(logout())
-                // navigation.navigate('Onboardings');
+                navigation.navigate('LoginHero');
                 // console.log("token not set")
                 // dispatch({type:"logout"})
             }
@@ -30,12 +30,12 @@ const Introduction = ({ }) => {
     };
 
     useEffect(() => {
-        // const time = setTimeout(() => {
+        const time = setTimeout(() => {
         retrieveData();
-        // }, 4000)
-        // return () => {
-        //     clearTimeout(time);
-        // }
+        }, 4000)
+        return () => {
+            clearTimeout(time);
+        }
     }, [])
 
 

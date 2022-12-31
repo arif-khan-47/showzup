@@ -16,7 +16,7 @@ import Profile from '../screen/ProfileSetup/Profile'
 import PIN from '../screen/ProfileSetup/PIN'
 import Finger from '../screen/ProfileSetup/Finger'
 import ForgetPswdHero from '../screen/ForgetPassword/ForgetPswdHero'
-import OTP from '../screen/ForgetPassword/OTP'
+import OTP from '../screen/Login/OTP'
 import NewPswd from '../screen/ForgetPassword/NewPswd'
 
 
@@ -26,7 +26,7 @@ const Stack = createStackNavigator();
 const AuthStack = () => {
     return (
         <>
-            <Stack.Navigator initialRouteName='Signup' screenOptions={{ headerStyle: tw`bg-transparent dark:bg-black shadow-none`, headerTitleStyle: tw`font-bold text-2xl` }}>
+            <Stack.Navigator initialRouteName='Splash' screenOptions={{ headerStyle: tw`bg-transparent dark:bg-black shadow-none`, headerTitleStyle: tw`font-bold text-2xl` }}>
                 {/* Splash Screen  */}
                 <Stack.Screen name='Splash' component={Introduction} options={{ headerShown: false }} />
 
@@ -45,7 +45,7 @@ const AuthStack = () => {
                 <Stack.Screen name='PIN' component={PIN} options={{ headerShown: true, title: "Create New PIN" }} />
                 <Stack.Screen name='Finger' component={Finger} options={{ headerShown: true, title: "Set Your Fingerprint" }} />
                 <Stack.Screen name='ForgetPswdHero' component={ForgetPswdHero} options={{ headerShown: true, title: "Forget Password" }} />
-                <Stack.Screen name='OTP' component={OTP} options={{ headerShown: true, title: "Forget Password" }} />
+                <Stack.Screen name='OTP' component={OTP} options={{ headerShown: false, title: "Forget Password" }} />
                 <Stack.Screen name='NewPswd' component={NewPswd} options={{ headerShown: true, title: "Create New Password" }} />
 
             </Stack.Navigator>
