@@ -11,7 +11,8 @@ const Routes = () => {
     const Stack = createStackNavigator();
     // const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated)
     // console.log('isAuthenticated', isAuthenticated)
-    const isAuthenticated = false;
+    // const isAuthenticated = false;
+    const isAuthenticated = true;
     return (
         <>
             <NavigationContainer>

@@ -17,6 +17,7 @@ import PIN from '../screen/ProfileSetup/PIN'
 import Finger from '../screen/ProfileSetup/Finger'
 import ForgetPswdHero from '../screen/ForgetPassword/ForgetPswdHero'
 import OTP from '../screen/Login/OTP'
+import Verified from '../screen/Login/Verified'
 import NewPswd from '../screen/ForgetPassword/NewPswd'
 
 
@@ -34,19 +35,21 @@ const AuthStack = () => {
                 <Stack.Screen name='LoginHero' component={LoginHero} options={{ headerShown: false }} />
                 <Stack.Screen name='Signin' component={SignIn} options={{ headerShown: false }} />
                 <Stack.Screen name='Signup' component={SignUp} options={{ headerShown: false }} />
-                <Stack.Screen name='Interest' component={Interest} options={{ headerShown: true, title: "Choose Your Interest" }} />
+                <Stack.Screen name='OTP' component={OTP} options={{ headerShown: false, title: "Forget Password" }} />
+                <Stack.Screen name='Verified' component={Verified} options={{ headerShown: false, title: "Forget Password" }} />
+
+                {/* <Stack.Screen name='Interest' component={Interest} options={{ headerShown: true, title: "Choose Your Interest" }} /> */}
 
                 {/* Connect to Backend */}
-                <Stack.Screen name='Gender' component={Gender} options={{ headerShown: true, title: "Tell Us About Yourself" }} />
+                {/* <Stack.Screen name='Gender' component={Gender} options={{ headerShown: true, title: "Tell Us About Yourself" }} /> */}
 
-                <Stack.Screen name='DOB' component={DOB} options={{ headerShown: true, title: "When is Your Birthday?" }} />
+                {/* <Stack.Screen name='DOB' component={DOB} options={{ headerShown: true, title: "When is Your Birthday?" }} /> */}
                 {/* Connect to Backend & adding logic*/}
-                <Stack.Screen name='Profile' component={Profile} options={{ headerShown: true, title: "Fill Your Profile" }} />
-                <Stack.Screen name='PIN' component={PIN} options={{ headerShown: true, title: "Create New PIN" }} />
-                <Stack.Screen name='Finger' component={Finger} options={{ headerShown: true, title: "Set Your Fingerprint" }} />
-                <Stack.Screen name='ForgetPswdHero' component={ForgetPswdHero} options={{ headerShown: true, title: "Forget Password" }} />
-                <Stack.Screen name='OTP' component={OTP} options={{ headerShown: false, title: "Forget Password" }} />
-                <Stack.Screen name='NewPswd' component={NewPswd} options={{ headerShown: true, title: "Create New Password" }} />
+                {/* <Stack.Screen name='Profile' component={Profile} options={{ headerShown: true, title: "Fill Your Profile" }} /> */}
+                {/* <Stack.Screen name='PIN' component={PIN} options={{ headerShown: true, title: "Create New PIN" }} /> */}
+                {/* <Stack.Screen name='Finger' component={Finger} options={{ headerShown: true, title: "Set Your Fingerprint" }} /> */}
+                {/* <Stack.Screen name='ForgetPswdHero' component={ForgetPswdHero} options={{ headerShown: true, title: "Forget Password" }} /> */}
+                {/* <Stack.Screen name='NewPswd' component={NewPswd} options={{ headerShown: true, title: "Create New Password" }} /> */}
 
             </Stack.Navigator>
         </>

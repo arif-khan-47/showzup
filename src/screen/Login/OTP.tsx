@@ -1,7 +1,6 @@
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native'
 import React, { useState } from 'react'
 import tw from 'twrnc'
-import OtpInput from '../../components/ProfileSetup/OtpInput'
 import {
     CodeField,
     Cursor,
@@ -10,7 +9,6 @@ import {
 } from 'react-native-confirmation-code-field';
 import { green100 } from 'react-native-paper/lib/typescript/styles/colors';
 import { ScrollView } from 'react-native-gesture-handler';
-
 
 
 
@@ -69,7 +67,7 @@ const OTP = ({ navigation }) => {
             </ScrollView>
 
             <View style={[{ height:"20%",}, tw`my-auto`]}>
-                <TouchableOpacity style={tw`my-auto`} onPress={() => navigation.navigate('NewPswd')}>
+                <TouchableOpacity style={tw`my-auto`} onPress={() => navigation.navigate('Verified')}>
                     <View style={tw`bg-[#FF6600] w-[90%] m-auto rounded-full h-12`}>
                         <Text style={tw`text-white mx-auto my-auto text-lg font-semibold`}>VERIFY</Text>
                     </View>
