@@ -7,7 +7,7 @@ let headers = {
 
 const API = axios.create({
     // baseURL : process.env.REACT_APP_BASEURL,
-    baseURL: 'http://192.168.1.14:5000',
+    baseURL: 'https://api.shree.network/api',
 
 
     withCredentials: true,
@@ -25,15 +25,18 @@ const API = axios.create({
 
 
 // GET 
-export const interest = () => API.get("/api/v1/interest");
-export const userData = () => API.get("/api/v1/me");
+
+export const allMovies = () => API.get("/content");
+export const search = (data) => API.get(`search?query=${data}`);
 
 // POST 
-export const register = (data) => API.post("/api/v1/register", data);
-export const login = (data) => API.post("/api/v1/login", data);
+// export const register = (data) => API.post("/api/v1/register", data);
+export const login = (data) => API.post("/auth/login", data);
+export const verifyOTP = (data) => API.post("/auth/verify-otp", data);
+
 
 // PUT 
-export const updateProfile = (data) => API.put("/api/v1/update/profile", data)
+// export const updateProfile = (data) => API.put("/api/v1/update/profile", data)
 
 
 // API.interceptors.request.use(

@@ -4,7 +4,6 @@ import tw from 'twrnc'
 import ProfileHeader from '../../components/UserProfile/ProfileHeader';
 import Profile, { ProfileButtons } from '../../components/UserProfile/FriendProfileInfo';
 import Entypo from 'react-native-vector-icons/Entypo';
-import ContentTabs from '../../components/UserProfile/ContentTabs';
 import { BottomSheetModal, BottomSheetModalProvider, } from '@gorhom/bottom-sheet';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useDispatch } from 'react-redux'
@@ -47,7 +46,7 @@ const UserProfile = () => {
   //logout function
   const loggingOut = async () => {
     try {
-      const value = await AsyncStorage.removeItem('token')
+      const value = await AsyncStorage.removeItem('accessToken')
       console.log(value)
       if (!value) {
         dispatch(logout())
@@ -110,7 +109,7 @@ const UserProfile = () => {
               {circle}
             </ScrollView>
           </View>
-          <ContentTabs />
+          {/* <ContentTabs /> */}
           {/* </ScrollView> */}
           <BottomSheetModal
             ref={bottomSheetModalRef}

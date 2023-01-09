@@ -16,7 +16,7 @@ const SingleReel = ({ item, index, currentIndex }) => {
     const windowHeight = Dimensions.get('window').height;
     const videoRef = useRef(null)
     const onBuffer = buffer => {
-        console.log('Buffering', buffer)
+        // console.log('Buffering', buffer)
     }
     const onError = error => {
         console.log('error....', error)

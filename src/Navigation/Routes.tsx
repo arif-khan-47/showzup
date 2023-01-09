@@ -9,10 +9,10 @@ import { RootState } from '../store/store';
 
 const Routes = () => {
     const Stack = createStackNavigator();
-    // const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated)
-    // console.log('isAuthenticated', isAuthenticated)
+    const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated)
+    console.log('isAuthenticated', isAuthenticated)
     // const isAuthenticated = false;
-    const isAuthenticated = true;
+    // const isAuthenticated = true;
     return (
         <>
             <NavigationContainer>

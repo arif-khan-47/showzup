@@ -11,17 +11,17 @@ const Introduction = ({ navigation }) => {
 
     const retrieveData = async () => {
         try {
-            const value = await AsyncStorage.getItem('token');
+            const value = await AsyncStorage.getItem('accessToken');
             if (value !== null) {
-                // console.log("ye value hai..",value);
+                console.log(value);
                 // dispatch({type:"login"})
-                // dispatch(checkLogin())
+                dispatch(checkLogin())
 
 
             } else {
                 // dispatch(logout())
                 navigation.navigate('LoginHero');
-                // console.log("token not set")
+                console.log("token not set")
                 // dispatch({type:"logout"})
             }
         } catch (error) {

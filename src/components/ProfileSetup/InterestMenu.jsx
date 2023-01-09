@@ -50,7 +50,7 @@ const InterestMenu = () => {
             }, tw`mx-5`]}
 
             renderItem={({ item, index }) => {
-                console.log(item)
+                // console.log(item)
                 return (
 
                     <TouchableOpacity key={index} onPress={() => onSelect(index, item.selected ? false : true)}>

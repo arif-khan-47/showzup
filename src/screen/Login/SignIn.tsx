@@ -18,7 +18,7 @@ const SignIn = ({ navigation }) => {
     const [password, setPassword] = useState("");
     const [valEmail, setValEmail] = useState(false);
     const [seePassword, setSeePassword] = useState(true);
-
+    // console.log(phone);
     const dispatch = useDispatch()
 
     // const type = 'email';
@@ -76,62 +76,75 @@ const SignIn = ({ navigation }) => {
 
 
     async function logIn() {
+        // alert('clicked')
 
-        {
-            if(type=='email') {
-            const checkPassword = checkPasswordValidity(password)
-        if (!checkPassword) {
-            // console.log('Password Validation secceed')
-        } else {
-            return showMessage({
-                message: checkPassword,
-                type: "danger",
-            });
-        }}else{
-            setTimeout(() => {
-                navigation.navigate('OTP')
+        try {
+            const response = await login({ phone });
+            // console.log(response.data)
+            try {
+                await AsyncStorage.setItem('hash', response.data.hash);
+                await AsyncStorage.setItem('phone', phone);
+                console.log('set to AsyncStorage')
 
-            }, 2000)
-            return showMessage({
-                message: 'Verification code send to your phone',
-                type: "success",
-            });
+
+            } catch (error) {
+                console.log(error)
+            }
+
+            if (type == 'email') {
+                const checkPassword = checkPasswordValidity(password)
+                if (!checkPassword) {
+                    // console.log('Password Validation secceed')
+                } else {
+                    return showMessage({
+                        message: checkPassword,
+                        type: "danger",
+                    });
+                }
+            } else {
+                setTimeout(() => {
+                    navigation.navigate('OTP')
+
+                }, 2000)
+                return showMessage({
+                    message: 'Verification code send to your phone',
+                    type: "success",
+                });
+            }
+        } catch (error) {
+            console.log(error);
         }
-
-    }
         // try {
 
-        // const response = await login({ email, password });
-        // console.log(response.data)
         // await AsyncStorage.setItem('token', response.data.token)
         // try {
         // alert(response.data.token)
         // } catch (e) {
         // console.log(e)
+
+        // dispatch({ type: "login" })
+        // dispatch(checkLogin())
+
+
+        // showMessage({
+        //     message: response.data.message,
+        //     type: "success",
+        // });
+        // navigation.navigate('HomeScreen')
+        // navigation.navigate('HomeStack')
+
+
+
+        // } catch (error) {
+        //     // console.log(error.response.data.message)
+        //     showMessage({
+        //         message: error.response.data.message,
+        //         type: "danger",
+        //     });
+        // }
+
+        // }
     }
-    
-    // dispatch({ type: "login" })
-    // dispatch(checkLogin())
-
-
-    // showMessage({
-    //     message: response.data.message,
-    //     type: "success",
-    // });
-    // navigation.navigate('HomeScreen')
-    // navigation.navigate('HomeStack')
-
-
-
-    // } catch (error) {
-    //     // console.log(error.response.data.message)
-    //     showMessage({
-    //         message: error.response.data.message,
-    //         type: "danger",
-    //     });
-    // }
-
-    // }
 
 
 

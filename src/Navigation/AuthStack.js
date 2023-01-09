@@ -9,16 +9,8 @@ import Introduction from '../screen/introduction/Introduction'
 import LoginHero from '../screen/Login/LoginHero'
 import SignUp from '../screen/Login/SignUp';
 import SignIn from '../screen/Login/SignIn';
-import Interest from '../screen/ProfileSetup/Interest'
-import Gender from '../screen/ProfileSetup/Gender'
-import DOB from '../screen/ProfileSetup/DOB'
-import Profile from '../screen/ProfileSetup/Profile'
-import PIN from '../screen/ProfileSetup/PIN'
-import Finger from '../screen/ProfileSetup/Finger'
-import ForgetPswdHero from '../screen/ForgetPassword/ForgetPswdHero'
 import OTP from '../screen/Login/OTP'
 import Verified from '../screen/Login/Verified'
-import NewPswd from '../screen/ForgetPassword/NewPswd'
 
 
 
