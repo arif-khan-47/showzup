@@ -78,6 +78,23 @@ import org.apache.tools.ant.taskdefs.condition.Os
  * ]
  */
 
+// def REACT_NATIVE_VERSION = new File(['node', '--print',"JSON.parse(require('fs').readFileSync(require.resolve('react-native/package.json'), 'utf-8')).version"].execute(null, rootDir).text.trim())
+
+// allprojects {
+//     configurations.all {
+//         resolutionStrategy {
+//             // Remove this override in 0.65+, as a proper fix is included in react-native itself.
+//             force "com.facebook.react:react-native:" + REACT_NATIVE_VERSION
+//         }
+//     }
+// }
+
+
+
+
+
+
+
 project.ext.react = [
     enableHermes: true,  // clean and rebuild if changing
 ]
@@ -93,12 +110,15 @@ apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
  * Upload all the APKs to the Play Store and people will download
  * the correct one based on the CPU architecture of their device.
  */
-def enableSeparateBuildPerCPUArchitecture = false
+// def enableSeparateBuildPerCPUArchitecture = false
+def enableSeparateBuildPerCPUArchitecture = true
 
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
-def enableProguardInReleaseBuilds = false
+def enableProguardInReleaseBuilds = true
+// def enableProguardInReleaseBuilds = false 
+
 
 /**
  * The preferred build flavor of JavaScriptCore.
@@ -207,7 +227,8 @@ android {
         abi {
             reset()
             enable enableSeparateBuildPerCPUArchitecture
-            universalApk false  // If true, also generate a universal APK
+            // universalApk false  // If true, also generate a universal APK
+            universalApk true
             include (*reactNativeArchitectures())
         }
     }
