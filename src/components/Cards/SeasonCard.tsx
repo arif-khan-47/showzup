@@ -1,44 +1,79 @@
-import { View, Text, FlatList, Image, Dimensions, Pressable } from 'react-native';
-import React from 'react'
-import tw from 'twrnc'
+import { View, Text, FlatList, Image, Dimensions, Pressable, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
+import Feather from 'react-native-vector-icons/Feather';
 
 
 
-const { width, height } = Dimensions.get('window');
 const SeasonCard = ({ data }) => {
     const navigation = useNavigation();
     console.log(data)
+    const [clicked, setClicked] = useState(false);
+
     return (
         <>
-                <FlatList
-
-                    data={data}
-                    // pagingEnabled
-                    keyExtractor={data._id}
-                    horizontal
-                    renderItem={({ item }) =>
-                    <Pressable onPress={() => navigation.navigate("MediaPlayingScreen",{episodes:item.episodes})}>
-                        <View style={{
-                            height: height / 8,
-                            width: width / 2 * 0.9,
-                            marginVertical: 20,
-                        }}>
-                            <View style={[{ position: 'relative', height: '100%', width: '90%', borderRadius: 15, marginLeft: 'auto', marginRight: 'auto' }]}>
-                                <Image
-                                    style={{ backgroundColor: '#FF6600', height: '100%', width: '100%', borderRadius: 15, marginLeft: 'auto', marginRight: 'auto' }}
-                                    source={{
-                                        uri: item.img
-                                    }}
-                                />
-                                <View style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.7)', borderRadius: 15 }}>
-                                    <Text style={{ textAlign: 'center', marginTop: 'auto', marginBottom: 'auto', fontWeight: '700', color: 'white', fontSize: 20 }}>{item.name}</Text>
-                                </View>
+            <FlatList
+                data={data}
+                keyExtractor={data._id}
+                renderItem={({ item }) =>
+                    <View style={{
+                        height: '100%',
+                        width: '100%',
+                        // backgroundColor:'blue',
+                        paddingHorizontal: 20,
+                        paddingVertical: 10
+                    }}>
+                        <Pressable style={{}} onPress={() => { setClicked(!clicked); }}>
+                            <View style={{ flexDirection: 'row', width: '50%' }}>
+                                <Text style={{ fontWeight: '600', color: clicked? '#FF6600' : 'white', fontSize: 18 }}>
+                                    {item.name}
+                                </Text>
+                                <Feather name={clicked ? 'chevron-up' : 'chevron-down'} style={{ fontSize: 20, color: clicked? '#FF6600' : 'white',}} />
                             </View>
-                        </View>
-            </Pressable>
-                    }
-                />
+
+                            {clicked ? (
+                                <View
+                                    style={{
+                                        elevation: 5,
+                                        marginTop: 20,
+                                        height: '100%',
+                                        width: '100%',
+                                        backgroundColor: 'black',
+                                    }}>
+                                    <FlatList
+                                        data={item.episodes}
+                                        // keyExtractor={data.episodes.id}
+                                        renderItem={({ item, index }) => {
+                                            return (
+                                                <TouchableOpacity onPress={() => navigation.navigate("Player", { data: item })}>
+                                                    <View style={{ borderColor: '#FF6600', marginVertical: 10, flexDirection: 'row', }}>
+                                                        <Image
+                                                            style={{ height: 50, width: 80, borderRadius: 8, marginTop: 'auto', marginBottom: 'auto', }}
+                                                            source={{
+                                                                uri: item.thumbnail,
+                                                            }}
+                                                        />
+                                                        <View style={{ marginTop: 'auto', marginBottom: 'auto', width: '100%' }}>
+                                                            <Text style={{ color: 'white', fontSize: 10, paddingLeft: 20, }}>{item.name}</Text>
+                                                            <Text style={{ color: 'white', fontSize: 15, paddingLeft: 20, fontWeight: '700', }}>{item.description.slice(0, 10)}</Text>
+                                                        </View>
+                                                    </View>
+                                                </TouchableOpacity>
+                                            );
+                                        }}
+                                    />
+                                </View>
+                            ) : null}
+
+                        </Pressable>
+
+
+
+
+
+                    </View>
+                }
+            />
 
         </>
     )

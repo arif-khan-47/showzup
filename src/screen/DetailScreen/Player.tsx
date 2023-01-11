@@ -8,19 +8,25 @@ const Player = ({ route }) => {
     console.log(data)
     return (
         <>
-            <View style={{ width: '100%', height: '50%' }}>
+            {/* <View style={{ width: '100%', height: '45%', backgroundColor:'#FF6600', position:'relative' }}> */}
                 <Video
                     ref={videoNode}
-                    style={{ width: '100%', height: '100%' }}
+                    style={{ width: '100%', height: '45%', backgroundColor:'black', position:'relative' }}
+                    resizeMode='contain'
+                    // paused={true}
+                    // fullscreen={true}
+                    // fullscreenAutorotate
+                    muted={true}
+                    controls={true}
                     source={{
-                        uri: data.source_link
-                        // 'https://shree-data.s3.ap-south-1.amazonaws.com/Drugo%60tsav/Drugo%20tsav2/1080p.m3u8'
-                        // 'https://shree-data.s3.ap-south-1.amazonaws.com/Drugo%60tsav/Drugo%20tsav2/1080p.m3u'
+                        uri: 
+                        // data.source_link
+                        'https://shree-data.s3.ap-south-1.amazonaws.com/Drugo%60tsav/Drugo%20tsav2/1080p.m3u8'
 
                     }}
                     autoplay
                 />
-            </View>
+            {/* </View> */}
             <ScrollView style={{ width: '100%', height: '50%', backgroundColor: 'black' }}>
                 <Text style={{ fontSize: 25, color: '#ff6600', paddingHorizontal: 10, paddingTop: 15, fontWeight: '800' }}>
                     {data.name}
@@ -28,12 +34,13 @@ const Player = ({ route }) => {
                 <Text style={{ fontSize: 20, color: 'white', paddingHorizontal: 10, paddingVertical: 2 }}>
                     {data.description}
                 </Text>
-                <Text style={{ fontSize: 20, color: 'white', paddingHorizontal: 10, paddingVertical: 10 }}>
-                    Duration: {data.duration} s
+                <Text style={{ fontSize: 20, color: 'gray', paddingHorizontal: 10, paddingVertical: 10 }}>
+                     {Math.floor(data.duration / 3600)}hr {Math.floor((data.duration % 3600) / 60)}min {data.duration % 60}s
                 </Text>
                 <Text style={{ fontSize: 20, color: 'gray', paddingHorizontal: 10, paddingVertical: 10 }}>
                     {data.content_offering_type}
                 </Text>
+
             </ScrollView>
         </>
     )

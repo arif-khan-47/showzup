@@ -2,7 +2,7 @@ import { View, Text, Pressable, ScrollView, FlatList, Image, Dimensions, Touchab
 import { useNavigation } from '@react-navigation/native';
 import React from 'react'
 import LinearGradient from 'react-native-linear-gradient';
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import ReadMore from '@fawazahmed/react-native-read-more';
 
 
@@ -16,7 +16,7 @@ const SingleMovieDetail = ({ route, navigation }) => {
   return (
     <ScrollView style={{ height: '100%', width: '100%', backgroundColor: 'black' }}>
       <View style={{
-        height: height / 1.6,
+        height: height / 1.7,
         width: width, // width:width*0.8
         // marginVertical: 10,
         // backgroundColor:'blue'
@@ -33,26 +33,6 @@ const SingleMovieDetail = ({ route, navigation }) => {
             <TouchableOpacity onPress={() => navigation.goBack()} style={{ left: 0, top: '0%', position: 'absolute', padding: 5 }}>
               <Ionicons name='arrow-back' size={35} color={'#FF6600'} style={{ padding: 10, borderRadius: 20 }} />
             </TouchableOpacity>
-            {/* <View style={{ bottom: 0, left: 0, right: 0, top: '60%', position: 'absolute', paddingHorizontal: 10 }}>
-            <Image
-              style={{ width: '25%', height: '15%' }}
-              source={{
-                uri: 'https://res.cloudinary.com/drtldr4nl/image/upload/v1672294964/showsup/showzup_logo_1_eouboh.png',
-              }}
-            />
-            <Text style={{ fontWeight: '700', fontSize: 30, marginLeft: 5, color: 'white', paddingTop: 10 }}>{name}</Text>
-            <Text style={{ marginLeft: 5, color: 'white', fontSize: 15 }}>Catagories.<Text style={{ color: '#FF6600' }}> 2000</Text>. 2h9m</Text>
-
-            <View style={{ position: 'absolute', bottom: '10%', width: '106%', height: '23%', flexDirection: 'row', paddingHorizontal: '2%' }}>
-              <TouchableOpacity
-                // onPress={() => navigation.navigate('MoviePage')} 
-                style={{ backgroundColor: '#FF6600', width: '98%', height: '100%', borderRadius: 10 }}>
-                <Text style={{ textAlign: 'center', marginTop: 'auto', marginBottom: 'auto', color: 'white', fontWeight: '700', fontSize: 16 }}>
-                  Play Now
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View> */}
           </LinearGradient>
         </View>
       </View>

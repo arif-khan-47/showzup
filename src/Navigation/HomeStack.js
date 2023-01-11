@@ -5,7 +5,6 @@ import React from 'react'
 
 //Screens
 
-import StatusView from '../components/Home/StatusView'
 import HomeScreen from '../screen/HomeScreen'
 import MoviePage from '../components/Home/MoviePage';
 import SearchPage from '../screen/Search/SearchPage';
@@ -13,7 +12,6 @@ import SingleMoviePage from '../screen/DetailScreen/SingleMoviePage';
 import SingleMovieDetail from '../screen/DetailScreen/SingleMovieDetail';
 import Settings from '../screen/MoreTab/Settings';
 import HelpAndSupport from '../screen/MoreTab/HelpAndSupport';
-import MediaPlayingScreen from '../screen/DetailScreen/MediaPlayingScreen';
 import Player from '../screen/DetailScreen/Player';
 
 
@@ -37,8 +35,6 @@ const HomeStack = () => {
                 {/* More Tab Screen */}
                 <Stack.Screen name='Settings' component={Settings} options={{ headerShown: true, }} />
                 <Stack.Screen name='HelpAndSupport' component={HelpAndSupport} options={{ headerShown: false, }} />
-
-                <Stack.Screen name='MediaPlayingScreen' component={MediaPlayingScreen} options={{ headerShown: false }} />
                 <Stack.Screen name='Player' component={Player} options={{ headerShown: false }} />
 
 
