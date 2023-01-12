@@ -72,7 +72,7 @@ const SearchPage = ({ navigation }) => {
                                 // pagingEnabled
                                 // horizontal
                                 renderItem={({ item }) =>
-                                    <Pressable>
+                                    <TouchableOpacity onPress={() => navigation.navigate("SingleMovie", { name: item.name, poster: item.poster, description: item.description, cast: item.cast, seasons:item.seasons })}>
                                         <View style={{ width: '100%', paddingHorizontal: 10, flexDirection: 'row', paddingVertical: 5 }}>
                                             <View style={{ width: '20%', padding: 2 }}>
                                                 <Image
@@ -89,7 +89,7 @@ const SearchPage = ({ navigation }) => {
                                                 </Text>
                                             </View>
                                         </View>
-                                    </Pressable>
+                                    </TouchableOpacity>
                                 }
 
                             />

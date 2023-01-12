@@ -16,10 +16,12 @@ const { width, height } = Dimensions.get('window');
 const SingleMoviePage = ({ route }) => {
 
   const { name, poster, description, cast, seasons } = route.params;
-  console.log(seasons);
+  // console.log(seasons);
   const navigation = useNavigation()
 
-
+  // console.log(seasons[0].episodes[1]);
+  const PlayButtonContetnt = seasons[0].episodes[0];
+ console.log(PlayButtonContetnt)
 
 
 
@@ -29,9 +31,7 @@ const SingleMoviePage = ({ route }) => {
       <ScrollView style={{ height: '100%', width: '100%', backgroundColor: 'black' }}>
         <View style={{
           height: height / 1.5,
-          width: width, // width:width*0.8
-          // marginVertical: 10,
-          // backgroundColor:'blue'
+          width: width,
         }}>
           <View style={{ height: '100%', width: '100%', position: 'relative', }}>
             <Image
@@ -55,6 +55,22 @@ const SingleMoviePage = ({ route }) => {
                 />
                 <Text style={{ fontWeight: '700', fontSize: 30, marginLeft: 5, color: 'white', paddingTop: 10 }}>{name}</Text>
                 <Text style={{ marginLeft: 5, color: 'white', fontSize: 15 }}>Catagories.<Text style={{ color: '#FF6600' }}> 2000</Text>. 2h9m</Text>
+
+                <View style={{ position: 'absolute', bottom: '15%', width: '106%', height: '23%', flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: '2%' }}>
+                  <TouchableOpacity
+                  onPress={() => navigation.navigate("Player", { data: PlayButtonContetnt })}
+                    // onPress={() => navigation.navigate("SingleMovie", { name: item.name, poster: item.poster, description: item.description, cast: item.cast, seasons: item.seasons })}
+                    style={{ backgroundColor: '#FF6600', width: '98%', height: '100%', borderRadius: 10 }}>
+                    <Text style={{ textAlign: 'center', marginTop: 'auto', marginBottom: 'auto', color: 'white', fontWeight: '700', fontSize: 16 }}>
+                      <Ionicons name='play' size={18}/>
+                      Play
+                    </Text>
+                  </TouchableOpacity>
+                 
+                </View>
+
+
+
 
                 <View style={{ position: 'absolute', bottom: '10%', width: '106%', height: '23%', flexDirection: 'row', paddingHorizontal: '2%' }}>
                 </View>

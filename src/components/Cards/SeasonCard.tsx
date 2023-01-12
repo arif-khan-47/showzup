@@ -7,7 +7,7 @@ import Feather from 'react-native-vector-icons/Feather';
 
 const SeasonCard = ({ data }) => {
     const navigation = useNavigation();
-    console.log(data)
+    // console.log(data)
     const [clicked, setClicked] = useState(false);
 
     return (
@@ -25,10 +25,10 @@ const SeasonCard = ({ data }) => {
                     }}>
                         <Pressable style={{}} onPress={() => { setClicked(!clicked); }}>
                             <View style={{ flexDirection: 'row', width: '50%' }}>
-                                <Text style={{ fontWeight: '600', color: clicked? '#FF6600' : 'white', fontSize: 18 }}>
+                                <Text style={{ fontWeight: '600', color: clicked ? '#FF6600' : 'white', fontSize: 18 }}>
                                     {item.name}
                                 </Text>
-                                <Feather name={clicked ? 'chevron-up' : 'chevron-down'} style={{ fontSize: 20, color: clicked? '#FF6600' : 'white',}} />
+                                <Feather name={clicked ? 'chevron-up' : 'chevron-down'} style={{ fontSize: 20, color: clicked ? '#FF6600' : 'white', display: item.name == null ? 'none' : 'flex' }} />
                             </View>
 
                             {clicked ? (
