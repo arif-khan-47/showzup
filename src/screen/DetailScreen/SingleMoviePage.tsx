@@ -1,4 +1,4 @@
-import { View, Text, Pressable, ScrollView, FlatList, Image, Dimensions, TouchableOpacity, TextInput, } from 'react-native'
+import { View, Text, Pressable, ScrollView, FlatList, Image, Dimensions, TouchableOpacity, TextInput, useWindowDimensions } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import React, { useRef, useState, useEffect } from 'react'
 import LinearGradient from 'react-native-linear-gradient';
@@ -9,7 +9,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import TrailerCard from '../../components/Cards/Rectangle';
 import { allMovies } from '../../http';
 
-
+import { TabView, SceneMap } from 'react-native-tab-view';
 
 
 
@@ -17,17 +17,20 @@ import { allMovies } from '../../http';
 const { width, height } = Dimensions.get('window');
 
 
+
+
+
 const SingleMoviePage = ({ route }) => {
-  
+
   const { name, poster, description, cast, seasons } = route.params;
   // console.log(seasons);
   const navigation = useNavigation()
 
   // console.log(seasons[0].episodes[1]);
   const PlayButtonContetnt = seasons[0].episodes[0];
-//  console.log(PlayButtonContetnt)
+  //  console.log(PlayButtonContetnt)
 
-const [data, setData] = useState([])
+  const [data, setData] = useState([])
   // console.log(data)
 
   async function getAllMovies() {
@@ -45,6 +48,49 @@ const [data, setData] = useState([])
   useEffect(() => {
     getAllMovies()
   }, [])
+
+
+
+  const FirstRoute = () => (
+    <View style={{flex:1}}>
+    <SeasonCard data={seasons} />
+    </View>
+  );
+  
+  const SecondRoute = () => (
+    <View style={{flex:1}}>
+     <TrailerCard data={data} title=''/>
+    </View>
+  );
+  
+  const ThirdRoute = () => (
+    <View style={{flex:1}}>
+     <TrailerCard data={data} title=''/>
+    </View>
+  );
+  
+  const renderScene = SceneMap({
+    first: FirstRoute,
+    second: SecondRoute,
+    third: ThirdRoute,
+  
+  });
+
+  const layout = useWindowDimensions();
+
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([
+    { key: 'first', title: 'Episodes' },
+    { key: 'second', title: 'Trailers & More' },
+    { key: 'third', title: 'More Like This' },
+
+  ]);
+
+
+
+
+
+
 
 
   return (
@@ -79,14 +125,14 @@ const [data, setData] = useState([])
 
                 <View style={{ position: 'absolute', bottom: '15%', width: '106%', height: '23%', flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: '2%' }}>
                   <TouchableOpacity
-                  onPress={() => navigation.navigate("Player", { data: PlayButtonContetnt })}
-                    style={{ backgroundColor: '#FF6600', width: '98%', height: '100%', borderRadius: 10,}}>
+                    onPress={() => navigation.navigate("Player", { data: PlayButtonContetnt })}
+                    style={{ backgroundColor: '#FF6600', width: '98%', height: '100%', borderRadius: 10, }}>
                     <Text style={{ textAlign: 'center', marginTop: 'auto', marginBottom: 'auto', color: 'white', fontWeight: '700', fontSize: 16 }}>
-                      <Ionicons name='play' size={18}/>
+                      <Ionicons name='play' size={18} />
                       Play
                     </Text>
                   </TouchableOpacity>
-                 
+
                 </View>
 
 
@@ -109,7 +155,7 @@ const [data, setData] = useState([])
         </View>
 
 
-        <View style={{ width: width, paddingHorizontal: 20 }}>
+        {/* <View style={{ width: width, paddingHorizontal: 20 }}>
           <Text style={{ color: 'white', fontSize: 25, marginTop: 15 }}>Episodes</Text>
           <View style={{ backgroundColor: '#ff6600', padding: 0.8, marginTop: 5, width: '25%' }}></View>
         </View>
@@ -126,8 +172,17 @@ const [data, setData] = useState([])
           <Text style={{ color: 'white', fontSize: 25, marginTop: 15 }}>More Like This</Text>
           <View style={{ backgroundColor: '#ff6600', padding: 0.8, marginTop: 5, width: '40%' }}></View>
         </View>
-        <TrailerCard data={data} title=''/>
+        <TrailerCard data={data} title=''/> */
+        }
 
+        <View style={{paddingVertical:20}}>
+          <TabView
+            navigationState={{ index, routes }}
+            renderScene={renderScene}
+            onIndexChange={setIndex}
+            initialLayout={{ width: layout.width }}
+          />
+        </View>
 
 
 
