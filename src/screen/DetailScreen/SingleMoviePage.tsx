@@ -1,10 +1,14 @@
 import { View, Text, Pressable, ScrollView, FlatList, Image, Dimensions, TouchableOpacity, TextInput, } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import LinearGradient from 'react-native-linear-gradient';
 import ReadMore from '@fawazahmed/react-native-read-more';
 import SeasonCard from '../../components/Cards/SeasonCard';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import TrailerCard from '../../components/Cards/Rectangle';
+import { allMovies } from '../../http';
+
 
 
 
@@ -14,16 +18,33 @@ const { width, height } = Dimensions.get('window');
 
 
 const SingleMoviePage = ({ route }) => {
-
+  
   const { name, poster, description, cast, seasons } = route.params;
   // console.log(seasons);
   const navigation = useNavigation()
 
   // console.log(seasons[0].episodes[1]);
   const PlayButtonContetnt = seasons[0].episodes[0];
- console.log(PlayButtonContetnt)
+//  console.log(PlayButtonContetnt)
 
+const [data, setData] = useState([])
+  // console.log(data)
 
+  async function getAllMovies() {
+    // console.log('Getting all movies');
+    try {
+      const response = await allMovies();
+      // console.log(response.data.data);
+      setData(response.data.data)
+    } catch (error) {
+
+    }
+
+  }
+
+  useEffect(() => {
+    getAllMovies()
+  }, [])
 
 
   return (
@@ -59,8 +80,7 @@ const SingleMoviePage = ({ route }) => {
                 <View style={{ position: 'absolute', bottom: '15%', width: '106%', height: '23%', flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: '2%' }}>
                   <TouchableOpacity
                   onPress={() => navigation.navigate("Player", { data: PlayButtonContetnt })}
-                    // onPress={() => navigation.navigate("SingleMovie", { name: item.name, poster: item.poster, description: item.description, cast: item.cast, seasons: item.seasons })}
-                    style={{ backgroundColor: '#FF6600', width: '98%', height: '100%', borderRadius: 10 }}>
+                    style={{ backgroundColor: '#FF6600', width: '98%', height: '100%', borderRadius: 10,}}>
                     <Text style={{ textAlign: 'center', marginTop: 'auto', marginBottom: 'auto', color: 'white', fontWeight: '700', fontSize: 16 }}>
                       <Ionicons name='play' size={18}/>
                       Play
@@ -86,10 +106,31 @@ const SingleMoviePage = ({ route }) => {
               {description}
             </ReadMore>
           </TouchableOpacity>
+        </View>
+
+
+        <View style={{ width: width, paddingHorizontal: 20 }}>
           <Text style={{ color: 'white', fontSize: 25, marginTop: 15 }}>Episodes</Text>
           <View style={{ backgroundColor: '#ff6600', padding: 0.8, marginTop: 5, width: '25%' }}></View>
         </View>
         <SeasonCard data={seasons} />
+
+        <View style={{ width: width, paddingHorizontal: 20, marginBottom:-25 }}>
+          <Text style={{ color: 'white', fontSize: 25, marginTop: 15 }}>Trailer & More</Text>
+          <View style={{ backgroundColor: '#ff6600', padding: 0.8, marginTop: 5, width: '40%' }}></View>
+        </View>
+        <TrailerCard data={data} title=''/>
+
+
+        <View style={{ width: width, paddingHorizontal: 20, marginBottom:-25 }}>
+          <Text style={{ color: 'white', fontSize: 25, marginTop: 15 }}>More Like This</Text>
+          <View style={{ backgroundColor: '#ff6600', padding: 0.8, marginTop: 5, width: '40%' }}></View>
+        </View>
+        <TrailerCard data={data} title=''/>
+
+
+
+
 
       </ScrollView>
     </>
@@ -97,5 +138,3 @@ const SingleMoviePage = ({ route }) => {
 }
 
 export default SingleMoviePage
-
-// 
