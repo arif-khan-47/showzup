@@ -87,7 +87,7 @@ const Upcoming = () => {
     <Header data={data} />
     <FullPortrait data={data} title={'Fantacy'}/>
     <FullPortrait data={data} title={'Horror'}/>  
-    <Category/>
+    {/* <Category/> */}
     </ScrollView>
 
       {/* <View style={{ width: width, height: height, backgroundColor: 'black', position: 'relative' }}>

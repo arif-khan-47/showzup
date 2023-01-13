@@ -8,7 +8,7 @@ import Feather from 'react-native-vector-icons/Feather';
 const SeasonCard = ({ data }) => {
     const navigation = useNavigation();
     // console.log(data)
-    const [clicked, setClicked] = useState(false);
+    const [clicked, setClicked] = useState(true);
 
     return (
         <>
@@ -48,14 +48,14 @@ const SeasonCard = ({ data }) => {
                                                 <TouchableOpacity onPress={() => navigation.navigate("Player", { data: item })}>
                                                     <View style={{ borderColor: '#FF6600', marginVertical: 10, flexDirection: 'row', }}>
                                                         <Image
-                                                            style={{ height: 50, width: 80, borderRadius: 8, marginTop: 'auto', marginBottom: 'auto', }}
+                                                            style={{ height: 70, width: '40%', borderRadius: 8, marginTop: 'auto', marginBottom: 'auto', }}
                                                             source={{
                                                                 uri: item.thumbnail,
                                                             }}
                                                         />
                                                         <View style={{ marginTop: 'auto', marginBottom: 'auto', width: '100%' }}>
                                                             <Text style={{ color: 'white', fontSize: 10, paddingLeft: 20, }}>{item.name}</Text>
-                                                            <Text style={{ color: 'white', fontSize: 15, paddingLeft: 20, fontWeight: '700', }}>{item.description.slice(0, 10)}</Text>
+                                                            <Text style={{ color: 'white', fontSize: 30, paddingLeft: 20, fontWeight: '700', }}>{item.description.slice(0, 15)}</Text>
                                                         </View>
                                                     </View>
                                                 </TouchableOpacity>
