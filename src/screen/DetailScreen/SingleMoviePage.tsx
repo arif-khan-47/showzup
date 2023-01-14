@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { View, Text, ScrollView, Image, Dimensions, TouchableOpacity } from 'react-native';
+=======
+import { View, Text, ScrollView, Image, Dimensions, TouchableOpacity } from 'react-native'
+>>>>>>> 0f2aa1d4b1d3d72ce8adb8413fb366b84e30e4c8
 import { useNavigation } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react'
 import LinearGradient from 'react-native-linear-gradient';
@@ -187,12 +191,20 @@ const SingleMoviePage = ({ route }: ISingleMovieProps) => {
               {
                 id: 2,
                 title: 'Trailer & More',
+<<<<<<< HEAD
                 component: <TrailerCard data={data} title='Watch Trailer' />
+=======
+                component: <></>
+>>>>>>> 0f2aa1d4b1d3d72ce8adb8413fb366b84e30e4c8
               },
               {
                 id: 3,
                 title: 'More Like This',
+<<<<<<< HEAD
                 component: <TrailerCard data={data} title='Watch Like this' />
+=======
+                component: <></>
+>>>>>>> 0f2aa1d4b1d3d72ce8adb8413fb366b84e30e4c8
               }
             ]}
         />
