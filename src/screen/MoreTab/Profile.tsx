@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react';
-import tw from 'twrnc'
+import tw from 'twrnc';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import FlashMessage from "react-native-flash-message";
 import { showMessage, hideMessage } from "react-native-flash-message";
 import { updateProfile, userData } from '../../http';
@@ -59,32 +60,33 @@ useEffect(() => {
   return (
     <>
       <FlashMessage position="top" />
-      <View style={[{ flex: 1 }]}>
+      <View style={[{ flex: 1, backgroundColor:'black' }]}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={{ left: 0, top: '0%', position: 'absolute', padding: 5 }}>
+          <Ionicons name='arrow-back' size={35} color={'#FF6600'} style={{ padding: 10, borderRadius: 20 }} />
+        </TouchableOpacity>
         <ScrollView style={[{}, tw`pt-5 mx-5`]}>
-          <View style={{}}>
-            <View style={tw`m-auto bg-gray-200 rounded-full p-3`}>
-              <TouchableOpacity>
+          <View style={{paddingVertical:25}}>
+              <TouchableOpacity style={tw`m-auto bg-gray-200 rounded-full p-3`}>
                 <Image
-                  style={tw`h-25 w-25`}
+                  style={tw`h-20 w-20`}
                   source={{
                     uri: null || 'https://img.icons8.com/material-rounded/384/d1d5db/user.png',
                   }}
                 />
                 <View>
                   <Image
-                    style={tw`h-8 w-8 absolute ml-20 -mt-5 bg-white rounded-lg`}
+                    style={tw`h-8 w-8 absolute ml-15 -mt-5 bg-white rounded-lg`}
                     source={{
-                      uri: 'https://res.cloudinary.com/drtldr4nl/image/upload/v1668000159/ELO/image-removebg-preview_erkqtn.png'
+                      uri: 'https://res.cloudinary.com/drtldr4nl/image/upload/v1672336778/showsup/111_j18yvb.png'
                     }}
                   />
                 </View>
               </TouchableOpacity>
-            </View>
           </View>
           <View style={[tw`bg-gray-200 rounded-xl my-2`]}>
             <TextInput style={tw`px-5`}
               placeholder='Name'
-              defaultValue={data.name}
+              defaultValue={name}
               onChangeText={(newName) => { setName(newName) }}
             />
           </View>
@@ -95,7 +97,7 @@ useEffect(() => {
               //  keyboardType='email-address'
               //  textContentType='emailAddress'
               // autoFocus={true}
-              defaultValue={data.username}
+              defaultValue={username}
               onChangeText={(newUsername) => setUsername(newUsername)}
             />
           </View>
@@ -106,7 +108,7 @@ useEffect(() => {
               keyboardType='email-address'
               textContentType='emailAddress'
               // autoFocus={true}
-              defaultValue={data.email}
+              defaultValue={email}
               onChangeText={(newEmail) => setEmail(newEmail)}
             />
             <Image
@@ -122,41 +124,29 @@ useEffect(() => {
               placeholder='Phone Number'
              keyboardType='numeric'
              textContentType='telephoneNumber'
-             defaultValue={data.phone}
+             defaultValue={phone}
               onChangeText={(newPhone) => setPhone(newPhone)}
             />
           </View>
 
-          <View style={[tw`bg-gray-200 rounded-xl my-2 flex-row justify-between`]}>
-            <TextInput style={tw`px-5 w-[80%]`}
-              placeholder='Address'
-              defaultValue={data.address}
-              onChangeText={(newAdd) => setAddress(newAdd)}
-            />
-            <Image
-              style={tw`w-5 h-5 mx-5 my-auto`}
-              source={{
-                uri: 'https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/384/null/external-location-library-tanah-basah-glyph-tanah-basah.png',
-              }}
-            />
-          </View>
-
         </ScrollView>
-        <View style={[{ position: 'relative', bottom: 0, left: 0, right: 0 }, tw`py-2 bg-gray-100`]}>
+        <View style={[{ position: 'relative', bottom: 0, left: 0, right: 0, backgroundColor:'black' }, tw`py-2`]}>
           {/* <NextSkipButton skipTo='Gender' nextTo='Gender'/> */}
           <View style={[styles.container, tw`my-auto flex-row`]}>
-            <TouchableOpacity onPress={() => navigation.navigate('PIN')}>
-              <View style={[tw`bg-[#FFEDF0] py-4 px-15 rounded-full`]}>
-                <Text style={tw`text-[#FF4D67]`}>Skip</Text>
+            <TouchableOpacity 
+            onPress={() => navigation.goBack()}
+            >
+              <View style={[tw`bg-gray-200 py-4 px-15 rounded-full`]}>
+                <Text style={tw`text-[#FF600]`}>Skip</Text>
               </View>
             </TouchableOpacity>
 
             {/* <TouchableOpacity onPress={() => navigation.navigate('PIN')}> */}
             {/* <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}> */}
-            <TouchableOpacity onPress={editProfile}>
-
-
-              <View style={[tw`bg-[#FF4D67] py-4 px-15 rounded-full`]}>
+            <TouchableOpacity 
+            // onPress={editProfile}
+            >
+              <View style={[tw`bg-[#FF6600] py-4 px-15 rounded-full`]}>
                 <Text style={tw`text-white`}>Continue</Text>
               </View>
             </TouchableOpacity>

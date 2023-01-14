@@ -8,10 +8,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import Search from './HomeScreenTabs/Search';
 import Upcoming from './HomeScreenTabs/Upcoming';
-import Notification from './HomeScreenTabs/Notification';
 import More from './HomeScreenTabs/More.tsx';
 import HomeTab from './HomeScreenTabs/Home';
-import { Text } from 'react-native';
 import Movies from './HomeScreenTabs/Movies';
 const Tab = createBottomTabNavigator();
 

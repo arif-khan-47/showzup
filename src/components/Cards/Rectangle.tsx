@@ -17,7 +17,7 @@ const SeriesCard = ({ data, title }) => {
                     keyExtractor={data.id}
                     horizontal
                     renderItem={({ item }) =>
-                        <Pressable onPress={() => navigation.navigate("SingleMovie", { name: item.name, poster: item.poster, description: item.description, cast: item.cast, seasons:item.seasons })}>
+                        <Pressable onPress={() => navigation.navigate("SingleMovie", { name: item.name, poster: item.poster, description: item.description, cast: item.cast, seasons: item.seasons })}>
                             <View style={{
                                 height: height / 5,
                                 width: width / 2, // width:width*0.8

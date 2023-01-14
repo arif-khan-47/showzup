@@ -1,15 +1,14 @@
-import { View, Text, Pressable, ScrollView, FlatList, Image, Dimensions, TouchableOpacity, TextInput, useWindowDimensions } from 'react-native'
+import { View, Text, ScrollView, Image, Dimensions, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import LinearGradient from 'react-native-linear-gradient';
 import ReadMore from '@fawazahmed/react-native-read-more';
 import SeasonCard from '../../components/Cards/SeasonCard';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import TrailerCard from '../../components/Cards/Rectangle';
 import { allMovies } from '../../http';
-
-import { TabView, SceneMap } from 'react-native-tab-view';
+// custom tabview components written by Pukhraj Dhamu
+import TabView from '../../components/TabView/TabView';
 
 
 
@@ -17,10 +16,20 @@ import { TabView, SceneMap } from 'react-native-tab-view';
 const { width, height } = Dimensions.get('window');
 
 
+interface ISingleMovieProps {
+  route: {
+    params: {
+      name: string;
+      poster: string;
+      description: string;
+      cast: string;
+      seasons: any;
+    }
+  }
+}
 
 
-
-const SingleMoviePage = ({ route }) => {
+const SingleMoviePage = ({ route }: ISingleMovieProps) => {
 
   const { name, poster, description, cast, seasons } = route.params;
   // console.log(seasons);
@@ -51,40 +60,23 @@ const SingleMoviePage = ({ route }) => {
 
 
 
-  const FirstRoute = () => (
-    <View style={{flex:1}}>
-    <SeasonCard data={seasons} />
-    </View>
-  );
-  
-  const SecondRoute = () => (
-    <View style={{flex:1}}>
-     <TrailerCard data={data} title=''/>
-    </View>
-  );
-  
-  const ThirdRoute = () => (
-    <View style={{flex:1}}>
-     <TrailerCard data={data} title=''/>
-    </View>
-  );
-  
-  const renderScene = SceneMap({
-    first: FirstRoute,
-    second: SecondRoute,
-    third: ThirdRoute,
-  
-  });
+  // const FirstRoute = () => (
+  //   <View style={{ flex: 1 }}>
+  //     <SeasonCard data={seasons} />
+  //   </View>
+  // );
 
-  const layout = useWindowDimensions();
+  // const SecondRoute = () => (
+  //   <View style={{ flex: 1 }}>
+  //     <TrailerCard data={data} title='' />
+  //   </View>
+  // );
 
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    { key: 'first', title: 'Episodes' },
-    { key: 'second', title: 'Trailers & More' },
-    { key: 'third', title: 'More Like This' },
-
-  ]);
+  // const ThirdRoute = () => (
+  //   <View style={{ flex: 1 }}>
+  //     <TrailerCard data={data} title='' />
+  //   </View>
+  // );
 
 
 
@@ -125,7 +117,7 @@ const SingleMoviePage = ({ route }) => {
 
                 <View style={{ position: 'absolute', bottom: '15%', width: '106%', height: '23%', flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: '2%' }}>
                   <TouchableOpacity
-                    onPress={() => navigation.navigate("Player", { data: PlayButtonContetnt })}
+                    onPress={() => navigation.navigate("Player" as never, { data: PlayButtonContetnt } as never)}
                     style={{ backgroundColor: '#FF6600', width: '98%', height: '100%', borderRadius: 10, }}>
                     <Text style={{ textAlign: 'center', marginTop: 'auto', marginBottom: 'auto', color: 'white', fontWeight: '700', fontSize: 16 }}>
                       <Ionicons name='play' size={18} />
@@ -147,7 +139,10 @@ const SingleMoviePage = ({ route }) => {
 
 
         <View style={{ width: width, paddingHorizontal: 20 }}>
-          <TouchableOpacity onPress={() => navigation.navigate("SingleMovieDetail", { name, poster, description, cast })}>
+          <TouchableOpacity onPress={() =>
+            navigation.navigate("SingleMovieDetail" as never,
+              { name, poster, description, cast } as never
+            )}>
             <ReadMore numberOfLines={3} style={{ fontSize: 14, paddingVertical: 2, color: 'white' }}>
               {description}
             </ReadMore>
@@ -160,29 +155,47 @@ const SingleMoviePage = ({ route }) => {
           <View style={{ backgroundColor: '#ff6600', padding: 0.8, marginTop: 5, width: '25%' }}></View>
         </View>
         <SeasonCard data={seasons} />
-
         <View style={{ width: width, paddingHorizontal: 20, marginBottom:-25 }}>
           <Text style={{ color: 'white', fontSize: 25, marginTop: 15 }}>Trailer & More</Text>
           <View style={{ backgroundColor: '#ff6600', padding: 0.8, marginTop: 5, width: '40%' }}></View>
         </View>
         <TrailerCard data={data} title=''/>
-
-
         <View style={{ width: width, paddingHorizontal: 20, marginBottom:-25 }}>
           <Text style={{ color: 'white', fontSize: 25, marginTop: 15 }}>More Like This</Text>
           <View style={{ backgroundColor: '#ff6600', padding: 0.8, marginTop: 5, width: '40%' }}></View>
         </View>
-        <TrailerCard data={data} title=''/> */
+        */
         }
 
-        <View style={{paddingVertical:20}}>
+        {/* <View style={{ paddingVertical: 20 }}>
           <TabView
             navigationState={{ index, routes }}
             renderScene={renderScene}
             onIndexChange={setIndex}
             initialLayout={{ width: layout.width }}
           />
-        </View>
+        </View> */}
+
+        <TabView
+          tabs={
+            [
+              {
+                id: 1,
+                title: 'Episodes',
+                component: <SeasonCard data={seasons} />
+              },
+              {
+                id: 2,
+                title: 'Trailer & More',
+                component: <TrailerCard data={data} title='Watch Trailer' />
+              },
+              {
+                id: 3,
+                title: 'More Like This',
+                component: <TrailerCard data={data} title='Watch Like this' />
+              }
+            ]}
+        />
 
 
 

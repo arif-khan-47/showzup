@@ -60,23 +60,18 @@ const More = () => {
         </View>
 
 
-        <TouchableOpacity style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
-          <Text style={{ color: 'white', fontSize: 18 }}>Buy Plans</Text>
+        <TouchableOpacity onPress={()=>navigation.navigate('Subscription')} style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
+          <Text style={{ color: 'white', fontSize: 18 }}>Plans</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
-          <Text style={{ color: 'white', fontSize: 18 }}>My Subscription</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
-          <Text style={{ color: 'white', fontSize: 18 }}>My Transactions</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
+
+        {/* <TouchableOpacity style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
           <Text style={{ color: 'white', fontSize: 18 }}>Watchlist</Text>
         </TouchableOpacity>
         <TouchableOpacity style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
-          <Text style={{ color: 'white', fontSize: 18 }}>Have a Prepaid Code?</Text>
-        </TouchableOpacity>
+          <Text style={{ color: 'white', fontSize: 18 }}>Generes</Text>
+        </TouchableOpacity> */}
 
-
+        
 
         <View style={{borderBottomWidth: 0.5, borderTopWidth: 0.5, borderColor: 'white' }}>      
         <TouchableOpacity onPress={()=>navigation.navigate('Settings')} style={{ paddingHorizontal: 10, paddingVertical: 15,}}>
@@ -84,26 +79,30 @@ const More = () => {
         </TouchableOpacity>
         </View>
 
+        <TouchableOpacity onPress={()=>navigation.navigate('TermConditions')} style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
+          <Text style={{ color: 'white', fontSize: 18 }}>Terms & Conditions</Text>
+        </TouchableOpacity>
 
-        <View style={{borderBottomWidth: 0.5, borderColor: 'white' }}>
-        <TouchableOpacity style={{ paddingHorizontal: 10, paddingVertical: 15,}}>
-          <Text style={{ color: 'white', fontSize: 18 }}>Invite a Friend</Text>
+
+        <TouchableOpacity onPress={()=>navigation.navigate('Privecy')} style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
+          <Text style={{ color: 'white', fontSize: 18 }}>Privacy Policy</Text>
         </TouchableOpacity>
-        </View>
         
-        <TouchableOpacity style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
-          <Text style={{ color: 'white', fontSize: 18 }}>About Us</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
+        <TouchableOpacity onPress={()=>navigation.navigate('HelpAndSupport')} style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
           <Text style={{ color: 'white', fontSize: 18 }}>Help Center</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
-          <Text style={{ color: 'white', fontSize: 18 }}>Content Redressal Mechanism</Text>
+        <TouchableOpacity onPress={()=>navigation.navigate('About')} style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
+          <Text style={{ color: 'white', fontSize: 18 }}>About Us</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={loggingOut} style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
           <Text style={{ color: '#FF6600', fontSize: 18 }}>Logout</Text>
         </TouchableOpacity>
+
+
+        <View style={{paddingVertical:15, justifyContent:'center', alignItems:'center'}}>
+        <Text style={{color:'gray'}}>Powered by Zezo.</Text>
+        </View>
 
       </ScrollView>
       {/* <BottomSheetModalProvider>
