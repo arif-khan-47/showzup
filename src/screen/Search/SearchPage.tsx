@@ -72,7 +72,7 @@ const SearchPage = ({ navigation }) => {
                                 // pagingEnabled
                                 // horizontal
                                 renderItem={({ item }) =>
-                                    <TouchableOpacity onPress={() => navigation.navigate("SingleMovie", { name: item.name, poster: item.poster, description: item.description, cast: item.cast, seasons:item.seasons })}>
+                                    <TouchableOpacity onPress={() => navigation.navigate("SingleMovie", { name: item.name, poster: item.poster, description: item.description, cast: item.cast, seasons:item.seasons, id:item._id, slug:item.slug })}>
                                         <View style={{ width: '100%', paddingHorizontal: 10, flexDirection: 'row', paddingVertical: 5 }}>
                                             <View style={{ width: '20%', padding: 2 }}>
                                                 <Image

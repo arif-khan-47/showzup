@@ -10,7 +10,7 @@ const BigContent = ({ data }) => {
     // console.log(data);
     const navigation = useNavigation();
    const sd = data[0]
-   console.log(sd)
+//    console.log(sd)
 
 
     return (

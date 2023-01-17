@@ -25,7 +25,7 @@ const MovieTabSquare = ({ data, title }) => {
                         flexWrap: 'wrap',
                     }}
                     renderItem={({ item }) =>
-                        <Pressable onPress={() => navigation.navigate("SingleMovie", { name: item.name, poster: item.poster, description: item.description, cast: item.cast, seasons:item.seasons })}>
+                        <Pressable onPress={() => navigation.navigate("SingleMovie", { name: item.name, poster: item.poster, description: item.description, cast: item.cast, seasons:item.seasons, id:item._id, slug:item.slug  })}>
                             <View style={{
                                 height: height / 7,
                                 width: width / 3, // width:width*0.8

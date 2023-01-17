@@ -31,8 +31,9 @@ interface ISingleMovieProps {
 
 const SingleMoviePage = ({ route }: ISingleMovieProps) => {
 
-  const { name, poster, description, cast, seasons } = route.params;
-  // console.log(seasons);
+  const { name, poster, description, cast, seasons, id, slug } = route.params;
+  //id, slug
+  console.log(id, slug);
   const navigation = useNavigation()
 
   // console.log(seasons[0].episodes[1]);

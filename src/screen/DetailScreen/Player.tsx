@@ -5,7 +5,7 @@ import Video from 'react-native-video';
 const Player = ({ route }) => {
     const { data } = route.params;
     const videoNode = useRef(null)
-    console.log(data)
+    // console.log(data)
     return (
         <>
             {/* <View style={{ width: '100%', height: '45%', backgroundColor:'#FF6600', position:'relative' }}> */}
