@@ -6,7 +6,6 @@ import React from 'react'
 //Screens
 
 import HomeScreen from '../screen/HomeScreen'
-import MoviePage from '../components/Home/MoviePage';
 import SearchPage from '../screen/Search/SearchPage';
 import SingleMoviePage from '../screen/DetailScreen/SingleMoviePage';
 import SingleMovieDetail from '../screen/DetailScreen/SingleMovieDetail';
@@ -32,7 +31,6 @@ const HomeStack = () => {
             <Stack.Navigator initialRouteName='HomeScreen' screenOptions={{ headerStyle:{backgroundColor:'black'}, headerTitleStyle: {color:'white'}, headerTintColor:'white', headerTitleAlign:'center' }}>
 
                 <Stack.Screen name='HomeScreen' component={HomeScreen} options={{ headerShown: false }} />
-                <Stack.Screen name='MoviePage' component={MoviePage} options={{ headerShown: false, title: "Story" }} />
                 <Stack.Screen name='SearchPage' component={SearchPage} options={{ headerShown: false, title: "Story" }} />
                 <Stack.Screen name='SingleMovie' component={SingleMoviePage} options={{ headerShown: false, title: "Story" }} />
                 <Stack.Screen name='SingleMovieDetail' component={SingleMovieDetail} options={{ headerShown: false, title: "Story" }} />
