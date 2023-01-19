@@ -137,11 +137,13 @@ const SingleMoviePage = ({ route }: ISingleMovieProps) => {
 
   }
   useEffect(() => {
-    if (data?.type === 'series') {
-      console.log('its working', data.type)
-      if (!data?.seasons) return
-      if (data?.seasons?.length > 0) {
-        setActiveSeason(data.seasons[0])
+    if (data) {
+      if (data?.type === 'series') {
+        console.log('its working', data.type)
+        if (!data?.seasons) return
+        if (data?.seasons?.length > 0) {
+          setActiveSeason(data.seasons[0])
+        }
       }
     }
   }, [data])
