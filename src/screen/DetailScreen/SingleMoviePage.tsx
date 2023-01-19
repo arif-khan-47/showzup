@@ -10,11 +10,7 @@ import { getSinglePageData } from '../../http';
 // custom tabview components written by Pukhraj Dhamu
 import TabView from '../../components/TabView/TabView';
 
-
-
-
 const { width, height } = Dimensions.get('window');
-
 
 interface ISingleMovieProps {
   route: {
@@ -167,7 +163,7 @@ const SingleMoviePage = ({ route }: ISingleMovieProps) => {
             <Image
               style={{ backgroundColor: '#FF6600', height: '100%', width: '100%', marginLeft: 'auto', marginRight: 'auto' }}
               source={{
-                uri: data.poster
+                uri: data?.poster
               }}
             />
 
@@ -183,7 +179,7 @@ const SingleMoviePage = ({ route }: ISingleMovieProps) => {
                     uri: 'https://res.cloudinary.com/drtldr4nl/image/upload/v1672294964/showsup/showzup_logo_1_eouboh.png',
                   }}
                 />
-                <Text style={{ fontWeight: '700', fontSize: 30, marginLeft: 5, color: 'white', paddingTop: 10 }}>{data.name}</Text>
+                <Text style={{ fontWeight: '700', fontSize: 30, marginLeft: 5, color: 'white', paddingTop: 10 }}>{data?.name}</Text>
                 <Text style={{ marginLeft: 5, color: 'white', fontSize: 15 }}>Catagories.<Text style={{ color: '#FF6600' }}> 2000</Text>. 2h9m</Text>
 
                 <View style={{ position: 'absolute', bottom: '15%', width: '106%', height: '23%', flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: '2%' }}>
@@ -209,10 +205,10 @@ const SingleMoviePage = ({ route }: ISingleMovieProps) => {
         <View style={{ width: width, paddingHorizontal: 20 }}>
           <TouchableOpacity onPress={() =>
             navigation.navigate("SingleMovieDetail" as never,
-              { name: data.name, poster: data.poster, description: data.description, cast: data.cast } as never
+              { name: data?.name, poster: data?.poster, description: data?.description, cast: data?.cast } as never
             )}>
             <ReadMore numberOfLines={3} style={{ fontSize: 14, paddingVertical: 2, color: 'white' }}>
-              {data.description}
+              {data?.description}
             </ReadMore>
           </TouchableOpacity>
         </View>
