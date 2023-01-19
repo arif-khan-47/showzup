@@ -6,7 +6,7 @@ import ReadMore from '@fawazahmed/react-native-read-more';
 import SeasonCard from '../../components/Cards/SeasonCard';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import TrailerCard from '../../components/Cards/Rectangle';
-import { allMovies } from '../../http';
+import { getSinglePageData } from '../../http';
 // custom tabview components written by Pukhraj Dhamu
 import TabView from '../../components/TabView/TabView';
 
@@ -19,71 +19,141 @@ const { width, height } = Dimensions.get('window');
 interface ISingleMovieProps {
   route: {
     params: {
-      name: string;
-      poster: string;
-      description: string;
-      cast: string;
+      // name: string;
+      // description: string;
+      slug: string;
+      id: string;
       seasons: any;
     }
   }
 }
 
+export interface IAllContentResponse {
+  message: string;
+  data: {
+    _id: string,
+    name: string,
+    slug: string,
+    u_age: string,
+    description: string,
+    duration: string,
+    rating: number,
+    source_link: string | null,
+    source_type: 'HLS' | 'MP4' | 'LIVE_STREAM_HLS'
+    trailer_source_link: string | null,
+    trailer_source_type: 'HLS' | 'MP4',
+    language: {
+      _id: string,
+      name: string,
+    }[] | null,
+    cast: {
+      _id: string,
+      name: string,
+      avatar: string | null,
+      type: string,
+    }[] | null,
+    poster: string,
+    thumbnail: string,
+    tags: string[],
+    seasons: {
+      _id: string,
+      name: string,
+      content_id: string,
+      order: number,
+      episodes: {
+        _id: string,
+        name: string,
+        description: string,
+        duration: number,
+        source_link: string,
+        source_type: 'HLS' | 'MP4',
+        content_offering_type: 'FREE' | 'PREMIUM',
+        thumbnail: string,
+        createdAt: string,
+        updatedAt: string,
+      }[] | null,
+      status: boolean,
+      created_by: string,
+      createdAt: string,
+      updatedAt: string,
+    }[] | null,
+    type: 'series' | 'movie' | 'live_stream',
+    content_offering_type: 'FREE' | 'PREMIUM',
+    updated_by: string,
+    created_by: string,
+    createdAt: string,
+    updatedAt: string,
+    category: {
+      _id: string,
+      name: string,
+    }[] | null,
+    genres: {
+      _id: string,
+      name: string,
+    }[] | null,
+  }[];
+  meta: {
+    pagination: {
+      page: number;
+      pageSize: number;
+      pageCount: number;
+      total: number;
+    },
+    report: {
+      total: number;
+      totalPublic: number;
+      totalPrivate: number;
+    }
+  } | null;
+}
+
 
 const SingleMoviePage = ({ route }: ISingleMovieProps) => {
+  // const [data, setData] = useState([])
+  const [data, setData] = useState<IAllContentResponse['data'][0]>()
+  const [activeSeason, setActiveSeason] = useState<any>([]);
+  const [activeSeasonNumber, setActiveSeasonNumber] = useState(1);
 
-  const { name, poster, description, cast, seasons, id, slug } = route.params;
-  //id, slug
+  console.log("bchdbd", activeSeason)
+
+  console.log(data)
+
+  const { seasons, id, slug } = route.params;
   console.log(id, slug);
   const navigation = useNavigation()
 
-  // console.log(seasons[0].episodes[1]);
+
   const PlayButtonContetnt = seasons[0].episodes[0];
-  //  console.log(PlayButtonContetnt)
 
-  const [data, setData] = useState([])
-  // console.log(data)
 
-  async function getAllMovies() {
-    // console.log('Getting all movies');
+
+
+  const getSingleMovies = async () => {
+    console.log('Getting all movies');
     try {
-      const response = await allMovies();
-      // console.log(response.data.data);
-      setData(response.data.data)
+      const response = await getSinglePageData(slug);
+      console.log("data is coming", response.data);
+      setData(response.data.data[0])
+      // setSeason(response.data.data[0].seasons[0])
     } catch (error) {
-
+      console.log(error)
     }
 
   }
+  useEffect(() => {
+    if (data?.type === 'series') {
+      console.log('its working', data.type)
+      if (!data?.seasons) return
+      if (data?.seasons?.length > 0) {
+        setActiveSeason(data.seasons[0])
+      }
+    }
+  }, [data])
 
   useEffect(() => {
-    getAllMovies()
-  }, [])
-
-
-
-  // const FirstRoute = () => (
-  //   <View style={{ flex: 1 }}>
-  //     <SeasonCard data={seasons} />
-  //   </View>
-  // );
-
-  // const SecondRoute = () => (
-  //   <View style={{ flex: 1 }}>
-  //     <TrailerCard data={data} title='' />
-  //   </View>
-  // );
-
-  // const ThirdRoute = () => (
-  //   <View style={{ flex: 1 }}>
-  //     <TrailerCard data={data} title='' />
-  //   </View>
-  // );
-
-
-
-
-
-
+    getSingleMovies()
+    console.log('useeffect console log')
+  }, [slug])
 
 
   return (
@@ -97,7 +167,7 @@ const SingleMoviePage = ({ route }: ISingleMovieProps) => {
             <Image
               style={{ backgroundColor: '#FF6600', height: '100%', width: '100%', marginLeft: 'auto', marginRight: 'auto' }}
               source={{
-                uri: poster
+                uri: data.poster
               }}
             />
 
@@ -113,7 +183,7 @@ const SingleMoviePage = ({ route }: ISingleMovieProps) => {
                     uri: 'https://res.cloudinary.com/drtldr4nl/image/upload/v1672294964/showsup/showzup_logo_1_eouboh.png',
                   }}
                 />
-                <Text style={{ fontWeight: '700', fontSize: 30, marginLeft: 5, color: 'white', paddingTop: 10 }}>{name}</Text>
+                <Text style={{ fontWeight: '700', fontSize: 30, marginLeft: 5, color: 'white', paddingTop: 10 }}>{data.name}</Text>
                 <Text style={{ marginLeft: 5, color: 'white', fontSize: 15 }}>Catagories.<Text style={{ color: '#FF6600' }}> 2000</Text>. 2h9m</Text>
 
                 <View style={{ position: 'absolute', bottom: '15%', width: '106%', height: '23%', flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: '2%' }}>
@@ -128,9 +198,6 @@ const SingleMoviePage = ({ route }: ISingleMovieProps) => {
 
                 </View>
 
-
-
-
                 <View style={{ position: 'absolute', bottom: '10%', width: '106%', height: '23%', flexDirection: 'row', paddingHorizontal: '2%' }}>
                 </View>
               </View>
@@ -142,40 +209,13 @@ const SingleMoviePage = ({ route }: ISingleMovieProps) => {
         <View style={{ width: width, paddingHorizontal: 20 }}>
           <TouchableOpacity onPress={() =>
             navigation.navigate("SingleMovieDetail" as never,
-              { name, poster, description, cast } as never
+              { name: data.name, poster: data.poster, description: data.description, cast: data.cast } as never
             )}>
             <ReadMore numberOfLines={3} style={{ fontSize: 14, paddingVertical: 2, color: 'white' }}>
-              {description}
+              {data.description}
             </ReadMore>
           </TouchableOpacity>
         </View>
-
-
-        {/* <View style={{ width: width, paddingHorizontal: 20 }}>
-          <Text style={{ color: 'white', fontSize: 25, marginTop: 15 }}>Episodes</Text>
-          <View style={{ backgroundColor: '#ff6600', padding: 0.8, marginTop: 5, width: '25%' }}></View>
-        </View>
-        <SeasonCard data={seasons} />
-        <View style={{ width: width, paddingHorizontal: 20, marginBottom:-25 }}>
-          <Text style={{ color: 'white', fontSize: 25, marginTop: 15 }}>Trailer & More</Text>
-          <View style={{ backgroundColor: '#ff6600', padding: 0.8, marginTop: 5, width: '40%' }}></View>
-        </View>
-        <TrailerCard data={data} title=''/>
-        <View style={{ width: width, paddingHorizontal: 20, marginBottom:-25 }}>
-          <Text style={{ color: 'white', fontSize: 25, marginTop: 15 }}>More Like This</Text>
-          <View style={{ backgroundColor: '#ff6600', padding: 0.8, marginTop: 5, width: '40%' }}></View>
-        </View>
-        */
-        }
-
-        {/* <View style={{ paddingVertical: 20 }}>
-          <TabView
-            navigationState={{ index, routes }}
-            renderScene={renderScene}
-            onIndexChange={setIndex}
-            initialLayout={{ width: layout.width }}
-          />
-        </View> */}
 
         <TabView
           tabs={

@@ -53,9 +53,10 @@ const SeasonCard = ({ data }) => {
                                                                 uri: item.thumbnail,
                                                             }}
                                                         />
-                                                        <View style={{ marginTop: 'auto', marginBottom: 'auto', width: '100%' }}>
-                                                            <Text style={{ color: 'white', fontSize: 10, paddingLeft: 20, }}>{item.name}</Text>
-                                                            <Text style={{ color: 'white', fontSize: 30, paddingLeft: 20, fontWeight: '700', }}>{item.description.slice(0, 15)}</Text>
+                                                        <View style={{ marginTop: 'auto', marginBottom: 'auto', width: '80%', paddingLeft:20 }}>
+                                                            <Text style={{ color: 'white', fontSize: 10, }}>{item.name}</Text>
+                                                            <Text style={{ color: 'white', fontSize: 15, fontWeight: '700', }}>{item.description.slice(0, 15)}</Text>
+                                                            <Text style={{ color: 'white', fontSize: 12, }}>{item.description.slice(0, 50)}</Text>
                                                         </View>
                                                     </View>
                                                 </TouchableOpacity>

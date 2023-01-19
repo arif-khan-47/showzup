@@ -11,7 +11,7 @@ const API = axios.create({
 
 
     withCredentials: true,
-    headers    : {
+    headers: {
         'Content-Type': "application/json",
         'Accept': "application/json",
         // 'Access-Control-Allow-Origin': 'http://192.168.19:8081',
@@ -24,15 +24,25 @@ const API = axios.create({
 
 
 
-// GET 
-
-export const allMovies = () => API.get("/content");
-export const search = (data) => API.get(`search?query=${data}`);
-
-// POST 
-// export const register = (data) => API.post("/api/v1/register", data);
+// Auth Endpoints
 export const login = (data) => API.post("/auth/login", data);
 export const verifyOTP = (data) => API.post("/auth/verify-otp", data);
+
+
+
+
+
+// Search Endpoints 
+export const search = (data) => API.get(`search?query=${data}`);
+
+
+// content endpoints
+export const allMovies = () => API.get("/content");
+export const getSinglePageData = (slug) => API.get(`/content?slug=${slug}`);
+
+
+
+
 
 
 // PUT 
