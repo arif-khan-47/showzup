@@ -40,9 +40,16 @@ export const search = (data) => API.get(`search?query=${data}`);
 export const allMovies = () => API.get("/content");
 export const getSinglePageData = (slug) => API.get(`/content?slug=${slug}`);
 
+// subscriptions endpoint
+export const getSubscriptions = () => API.get(`/subscriptions`);
+export const checkIsPrimium = () => API.get(`/subscription/check`);
+
+// users endpoint
+export const deactivateAccount = () => API.delete(`/users`);
 
 
-
+// trending endpoint
+export const getTrending = () => API.get(`/trending/`);
 
 
 // PUT 

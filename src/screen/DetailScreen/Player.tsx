@@ -1,15 +1,16 @@
 import { View, Text, ScrollView } from 'react-native'
 import React, { useRef } from 'react'
 import Video from 'react-native-video';
+import { VideoPlayer } from '../../components/VideoPlayer';
 
 const Player = ({ route }) => {
     const { data } = route.params;
     const videoNode = useRef(null)
     // console.log(data)
     return (
-        <>
+        <View>
             {/* <View style={{ width: '100%', height: '45%', backgroundColor:'#FF6600', position:'relative' }}> */}
-                <Video
+                {/* <Video
                     ref={videoNode}
                     style={{ width: '100%', height: '45%', backgroundColor:'black', position:'relative' }}
                     resizeMode='contain'
@@ -25,9 +26,20 @@ const Player = ({ route }) => {
 
                     }}
                     autoplay
-                />
+                /> */}
+                <View style={{ width: '100%', height: '45%', backgroundColor:'black', position:'relative' }}>
+
+                {/* <VideoPlayer
+                //  streamUrl={data?.source_link}
+                 defaultFullScreen={true}
+                 autoPlay={true}
+                 defaultResizeMode='Cover'
+                //  premium={episode?.premium}
+                 premiumCheck={true}
+                /> */}
+                </View>
             {/* </View> */}
-            <ScrollView style={{ width: '100%', height: '50%', backgroundColor: 'black' }}>
+            <ScrollView style={{ width: '100%', height: '55%', backgroundColor: 'black' }}>
                 <Text style={{ fontSize: 25, color: '#ff6600', paddingHorizontal: 10, paddingTop: 15, fontWeight: '800' }}>
                     {data.name}
                 </Text>
@@ -42,7 +54,7 @@ const Player = ({ route }) => {
                 </Text>
 
             </ScrollView>
-        </>
+        </View>
     )
 }
 

@@ -2,7 +2,7 @@ import { Dimensions, Image, Pressable, ScrollView, Text, View, TouchableOpacity 
 import React, { useEffect, useState, useRef } from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Carousel from 'react-native-anchor-carousel'
-import { allMovies } from '../../http'
+import { allMovies, getTrending } from '../../http'
 import tw from 'twrnc'
 import MovieTabSquare from '../../components/Cards/MovieTabSquare'
 
@@ -13,10 +13,10 @@ const Search = ({ navigation }) => {
   const [data, setData] = useState([])
   // console.log(data)
 
-  async function getAllMovies() {
+  async function getAllTrends() {
     // console.log('Getting all movies');
     try {
-      const response = await allMovies();
+      const response = await getTrending();
       // console.log(response.data.data);
       setData(response.data.data)
     } catch (error) {
@@ -26,7 +26,7 @@ const Search = ({ navigation }) => {
   }
 
   useEffect(() => {
-    getAllMovies()
+    getAllTrends()
   }, [])
 
 
@@ -48,14 +48,14 @@ const Search = ({ navigation }) => {
       <View>
         <TouchableOpacity
           // style={tw`shadow-lg shadow-[#FF6600]`}
-          onPress={() => navigation.navigate("SingleMovie", { name: item.name, poster: item.poster, description: item.description, cast: item.cast, seasons:item.seasons })}
+          onPress={() => navigation.navigate("SingleMovie", { name: item.name, poster: item.poster, description: item.description, cast: item.cast, seasons:item.seasons, slug: item.slug})}
         >
           <Image source={{ uri: item.poster }} style={[{
             width: 200,
             height: 250,
             borderRadius: 15,
             alignSelf: 'center',
-            backgroundColor: 'rgba(0,0,0,0.9)'
+            backgroundColor: 'rgba(255, 102, 0,0.9)'
           }]} />
           <Text style={{
             paddingLeft: 14,

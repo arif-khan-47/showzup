@@ -3,15 +3,18 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState, useRef } from 'react'
 import Carousel from 'react-native-anchor-carousel'
-import { allMovies } from '../../http'
+import { getSubscriptions } from '../../http'
 import tw from 'twrnc'
 
 
 
 const Subscription = () => {
 
-  // const [data, setData] = useState([])
+  const [fetchdata, setFetchdata] = useState([])
   const navigation = useNavigation()
+  const { width } = Dimensions.get('window')
+
+  const carouselRef = useRef(null);
 
   const data = [
     {
@@ -21,47 +24,105 @@ const Subscription = () => {
       period: 'Monthly',
       description: 'iOS, Android, Appie TV, Roku, Amazon Fire TV, web browser'
     },
-    {
-      id: 2,
-      plan: 'Silver',
-      rupees: '199',
-      period: 'Monthly',
-      description: 'iOS, Android, Appie TV, Roku, Amazon Fire TV, web browser'
-    },
-    {
-      id: 3,
-      plan: 'Gold',
-      rupees: '299',
-      period: 'Monthly',
-      description: 'iOS, Android, Appie TV, Roku, Amazon Fire TV, web browser'
-    },
-    {
-      id: 4,
-      plan: 'Premium',
-      rupees: '1999',
-      period: 'Annualy',
-      description: 'iOS, Android, Appie TV, Roku, Amazon Fire TV, web browser'
-    },
-    {
-      id: 5,
-      plan: 'Diamond',
-      rupees: '2999',
-      period: 'Annualy',
-      description: 'iOS, Android, Appie TV, Roku, Amazon Fire TV, web browser'
-    },
+    // {
+    //   id: 2,
+    //   plan: 'Silver',
+    //   rupees: '199',
+    //   period: 'Monthly',
+    //   description: 'iOS, Android, Appie TV, Roku, Amazon Fire TV, web browser'
+    // },
+    // {
+    //   id: 3,
+    //   plan: 'Gold',
+    //   rupees: '299',
+    //   period: 'Monthly',
+    //   description: 'iOS, Android, Appie TV, Roku, Amazon Fire TV, web browser'
+    // },
+    // {
+    //   id: 4,
+    //   plan: 'Premium',
+    //   rupees: '1999',
+    //   period: 'Annualy',
+    //   description: 'iOS, Android, Appie TV, Roku, Amazon Fire TV, web browser'
+    // },
+    // {
+    //   id: 5,
+    //   plan: 'Diamond',
+    //   rupees: '2999',
+    //   period: 'Annualy',
+    //   description: 'iOS, Android, Appie TV, Roku, Amazon Fire TV, web browser'
+    // },
   ]
+  const getSingleMovies = async () => {
+    try {
+      const response = await getSubscriptions();
+      setFetchdata(response.data.data)
+    } catch (error) {
+      console.log(error)
+    }
 
-  const carouselRef = useRef(null);
+  }
+  useEffect(() => {
+    getSingleMovies()
+  }, [])
 
-  const { width } = Dimensions.get('window')
 
+  // const renderItem = ({ item, index }) => {
+  //   return (
+  //     <View>
+  //       <View
+  //         // style={tw`shadow-lg shadow-[#FF6600]`}
+  //         onPress={() => console.log('clicked')}
+  //       >
+  //         <View style={[{
+  //           width: 200,
+  //           height: 220,
+  //           borderRadius: 15,
+  //           alignSelf: 'center',
+  //           backgroundColor: '#ff6600',
+  //           padding: 20,
+  //         }]}>
+  //           <Text style={{
+  //             color: 'white',
+  //             textAlign: 'center',
+  //             fontSize: 18,
+  //             fontWeight: 'bold'
+  //           }}>{item.plan}</Text>
+  //           <Text style={{
+  //             color: 'white',
+  //             textAlign: 'center',
+  //             fontSize: 50,
+  //             fontWeight: 'bold'
+  //           }}>₹ {item.rupees}</Text>
+  //           <Text style={{
+  //             color: 'white',
+  //             textAlign: 'center',
+  //             fontSize: 12,
+  //           }}>{item.period}</Text>
+
+  //           <Text style={{
+  //             color: 'white',
+  //             textAlign: 'center',
+  //             paddingTop: 10,
+  //             fontSize: 12,
+  //           }}>{item.description}</Text>
+
+  //           <TouchableOpacity style={{marginVertical:10, paddingVertical:10, backgroundColor:'white', borderRadius:25}}>
+  //             <Text style={{color:'#ff6600', textAlign:'center', fontWeight:'700', fontSize:18}}>Sunscribe</Text>
+  //           </TouchableOpacity>
+
+
+  //         </View>
+  //       </View>
+
+  //     </View>
+
+  //   )
+  // }
   const renderItem = ({ item, index }) => {
     return (
       <View>
-        <View
-          // style={tw`shadow-lg shadow-[#FF6600]`}
-          onPress={() => console.log('clicked')}
-        >
+        <View>
           <View style={[{
             width: 200,
             height: 220,
@@ -75,18 +136,18 @@ const Subscription = () => {
               textAlign: 'center',
               fontSize: 18,
               fontWeight: 'bold'
-            }}>{item.plan}</Text>
+            }}>{item.name}</Text>
             <Text style={{
               color: 'white',
               textAlign: 'center',
               fontSize: 50,
               fontWeight: 'bold'
-            }}>₹ {item.rupees}</Text>
+            }}>₹ {item.price}</Text>
             <Text style={{
               color: 'white',
               textAlign: 'center',
               fontSize: 12,
-            }}>{item.period}</Text>
+            }}>{item.duration}</Text>
 
             <Text style={{
               color: 'white',
@@ -95,9 +156,16 @@ const Subscription = () => {
               fontSize: 12,
             }}>{item.description}</Text>
 
-            <TouchableOpacity style={{marginVertical:10, paddingVertical:10, backgroundColor:'white', borderRadius:25}}>
-              <Text style={{color:'#ff6600', textAlign:'center', fontWeight:'700', fontSize:18}}>Sunscribe</Text>
-            </TouchableOpacity>
+            {
+              item.status ?
+                <TouchableOpacity disabled style={{ marginVertical: 10, paddingVertical: 10, backgroundColor: '#ff6600', borderRadius: 25, borderWidth:2, borderColor:'white', opacity:0.5 }}>
+                  <Text style={{ color: 'white', textAlign: 'center', fontWeight: '700', fontSize: 18, }}>Sunscribed</Text>
+                </TouchableOpacity> 
+                :
+                <TouchableOpacity style={{ marginVertical: 10, paddingVertical: 10, backgroundColor: 'white', borderRadius: 25 }}>
+                  <Text style={{ color: '#ff6600', textAlign: 'center', fontWeight: '700', fontSize: 18 }}>Sunscribe</Text>
+                </TouchableOpacity>
+            }
 
 
           </View>
@@ -125,7 +193,7 @@ const Subscription = () => {
 
         <View style={{ paddingVertical: 10, paddingHorizontal: 20, }}>
           <Text style={{ color: 'white', fontWeight: '700', fontSize: 25, textAlign: 'center' }}>Subscribe to enjoy your lovely Movies or Series</Text>
-          <Text style={{ color: 'gray', fontSize: 18, textAlign: 'center' }}>We will help you to book your lovely movies  computerize and instantly. And it’s free!</Text>
+          <Text style={{ color: 'gray', fontSize: 18, textAlign: 'center' }}>We will help you to book your lovely movies computerize and instantly.</Text>
         </View>
 
 
@@ -147,7 +215,8 @@ const Subscription = () => {
               // flex: 1,
               overflow: 'visible',
             }}
-              data={data}
+              data={fetchdata}
+              key={fetchdata._id}
               renderItem={renderItem}
               itemWidth={200}
               containerWidth={width - 20}
@@ -160,21 +229,21 @@ const Subscription = () => {
           </View>
         </View>
 
-        <View style={{ paddingVertical: 10, paddingHorizontal: 20, }}>
+        <View style={{ paddingHorizontal: 20, }}>
 
           <Text style={{
             color: 'white',
             textAlign: 'center',
             paddingTop: 10,
             fontSize: 12,
-          }}>You Will be charged $9.99 (monthly plan) or $60.99 (annual
-            plan) through your Tunes account.</Text>
+          }}>If you are not setisfied with our service, you can cancel your subscription within 7 days and get full refund.</Text>
           <Text style={{
             color: 'white',
             paddingTop: 10,
             textAlign: 'center',
-            fontSize: 12,
-          }}>You can cancel at any time if your not satisfied</Text>
+            fontSize: 15,
+            fontWeight: 'bold',
+          }}>Please note that refund are processed within 7 days of cancellation.</Text>
 
         </View>
 

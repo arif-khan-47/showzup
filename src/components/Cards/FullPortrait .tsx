@@ -18,7 +18,7 @@ const FullPortrait = ({ data, title }) => {
                     keyExtractor={data.id}
                     horizontal
                     renderItem={({ item }) =>
-                        <Pressable onPress={() => navigation.navigate("SingleMovie", { name: item.name, poster: item.poster, description: item.description, cast: item.cast, seasons:item.seasons, id:item._id, slug:item.slug  })}>
+                        <Pressable onPress={() => navigation.navigate("SingleMovie", { id:item._id, slug:item.slug  })}>
 
                             <View style={{
                                 height: height / 5,

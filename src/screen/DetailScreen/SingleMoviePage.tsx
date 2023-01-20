@@ -6,7 +6,7 @@ import ReadMore from '@fawazahmed/react-native-read-more';
 import SeasonCard from '../../components/Cards/SeasonCard';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import TrailerCard from '../../components/Cards/Rectangle';
-import { getSinglePageData } from '../../http';
+import { getSinglePageData, allMovies } from '../../http';
 // custom tabview components written by Pukhraj Dhamu
 import TabView from '../../components/TabView/TabView';
 
@@ -107,30 +107,27 @@ export interface IAllContentResponse {
 const SingleMoviePage = ({ route }: ISingleMovieProps) => {
   // const [data, setData] = useState([])
   const [data, setData] = useState<IAllContentResponse['data'][0]>()
+  // console.log(data)
   const [activeSeason, setActiveSeason] = useState<any>([]);
   const [activeSeasonNumber, setActiveSeasonNumber] = useState(1);
 
-  console.log("bchdbd", activeSeason)
+  const PlayButtonContetnt = data?.seasons;
+  // console.log(data?.seasons)
 
-  console.log(data)
 
-  const { seasons, id, slug } = route.params;
-  console.log(id, slug);
+  const { slug } = route.params;
   const navigation = useNavigation()
 
 
-  const PlayButtonContetnt = seasons[0].episodes[0];
+
 
 
 
 
   const getSingleMovies = async () => {
-    console.log('Getting all movies');
     try {
       const response = await getSinglePageData(slug);
-      console.log("data is coming", response.data);
       setData(response.data.data[0])
-      // setSeason(response.data.data[0].seasons[0])
     } catch (error) {
       console.log(error)
     }
@@ -139,7 +136,6 @@ const SingleMoviePage = ({ route }: ISingleMovieProps) => {
   useEffect(() => {
     if (data) {
       if (data?.type === 'series') {
-        console.log('its working', data.type)
         if (!data?.seasons) return
         if (data?.seasons?.length > 0) {
           setActiveSeason(data.seasons[0])
@@ -150,9 +146,26 @@ const SingleMoviePage = ({ route }: ISingleMovieProps) => {
 
   useEffect(() => {
     getSingleMovies()
-    console.log('useeffect console log')
   }, [slug])
 
+  const [trailerdata, setTrailerdata] = useState([])
+  // console.log(trailerdata)
+
+  async function getAllMovies() {
+    // console.log('Getting all movies');
+    try {
+      const response = await allMovies();
+      // console.log(response.data.data);
+      setTrailerdata(response.data.data)
+    } catch (error) {
+
+    }
+
+  }
+
+  useEffect(() => {
+    getAllMovies()
+  }, [])
 
   return (
     <>
@@ -221,17 +234,17 @@ const SingleMoviePage = ({ route }: ISingleMovieProps) => {
               {
                 id: 1,
                 title: 'Episodes',
-                component: <SeasonCard data={seasons} />
+                component: <SeasonCard data={data?.seasons} />
               },
               {
                 id: 2,
                 title: 'Trailer & More',
-                component: <TrailerCard data={data} title='Watch Trailer' />
+                component: <TrailerCard data={trailerdata} title='Watch Trailer' />
               },
               {
                 id: 3,
                 title: 'More Like This',
-                component: <TrailerCard data={data} title='Watch Like this' />
+                component: <TrailerCard data={trailerdata} title='Watch Like this' />
               }
             ]}
         />

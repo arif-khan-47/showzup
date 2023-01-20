@@ -5,21 +5,20 @@ import Feather from 'react-native-vector-icons/Feather';
 
 
 
-const SeasonCard = ({ data }) => {
+const SeasonCard = ({data}) => {
     const navigation = useNavigation();
-    // console.log(data)
+    console.log(data)
     const [clicked, setClicked] = useState(true);
 
     return (
         <>
             <FlatList
                 data={data}
-                keyExtractor={data._id}
+                keyExtractor={data?._id}
                 renderItem={({ item }) =>
                     <View style={{
                         height: '100%',
                         width: '100%',
-                        // backgroundColor:'blue',
                         paddingHorizontal: 20,
                         paddingVertical: 10
                     }}>
@@ -53,7 +52,7 @@ const SeasonCard = ({ data }) => {
                                                                 uri: item.thumbnail,
                                                             }}
                                                         />
-                                                        <View style={{ marginTop: 'auto', marginBottom: 'auto', width: '80%', paddingLeft:20 }}>
+                                                        <View style={{ marginTop: 'auto', marginBottom: 'auto', width: '80%', paddingLeft: 20 }}>
                                                             <Text style={{ color: 'white', fontSize: 10, }}>{item.name}</Text>
                                                             <Text style={{ color: 'white', fontSize: 15, fontWeight: '700', }}>{item.description.slice(0, 15)}</Text>
                                                             <Text style={{ color: 'white', fontSize: 12, }}>{item.description.slice(0, 50)}</Text>

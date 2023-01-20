@@ -13,7 +13,7 @@ interface ITabView {
 const TabView = ({
     tabs = [],
 }: ITabView) => {
-    const [activeTab, setActiveTab] = React.useState(1)
+    const [activeTab, setActiveTab] = React.useState(2)
     const [currentTab, setCurrentTab] = React.useState(tabs[0].component || <View></View>)
     return (
         <>
