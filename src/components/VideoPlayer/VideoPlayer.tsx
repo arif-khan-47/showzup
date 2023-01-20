@@ -14,13 +14,13 @@ import API, { addWatchTime, countView } from '../../http'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 // import { setBandwidth, setIsFullScreen, setIsGoBack, setIsLandScape, setResolution, setShowPlanPopup } from '../../Redux/Slice/playerSlice'
 import tw from 'twrnc'
-import { PremiumICon } from '../../Icons'
-import navgiationStrings from '../../Constants/navgiationStrings'
-import { callUpdateHistory } from '../../Redux/Slice/historySlice'
+// import { PremiumICon } from '../../Icons'
+// import navgiationStrings from '../../Constants/navgiationStrings'
+// import { callUpdateHistory } from '../../Redux/Slice/historySlice'
 // import { RootState } from '../../Redux/store'
 import { MediaControlsView } from '.'
 import { getM3U8Resolutions } from './PlayerUtils'
-import { format as prettyFormat } from 'pretty-format'
+// import { format as prettyFormat } from 'pretty-format'
 // import { IContent } from '../../Redux/Slice/contentSlice'
 
 
@@ -53,7 +53,7 @@ const VideoPlayer = ({
     streamContentInfo
 }: VideoPlayerProps) => {
     const navigation = useNavigation()
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
     // useRef
     const videoRef = useRef(null)
     // useState
@@ -163,7 +163,9 @@ const VideoPlayer = ({
             // dispatch(setIsFullScreen(true))
             Orientation.lockToLandscape();
         }
-    }, [isLandScape])
+    // }, [isLandScape])
+}, [])
+
 
 
     // handle video play and pause
@@ -456,7 +458,9 @@ const VideoPlayer = ({
         } else {
             return ['13%', '13%']
         }
-    }, [isFullScreen])
+    // }, [isFullScreen])
+}, [])
+
 
     // callbacks
     const settingHandlePresentModalPress = useCallback(() => {
@@ -479,7 +483,9 @@ const VideoPlayer = ({
         } else {
             return ['25%', '50%']
         }
-    }, [isFullScreen])
+    // }, [isFullScreen])
+}, [])
+
 
     // callbacks
     const handlePresentModalPress = useCallback(() => {

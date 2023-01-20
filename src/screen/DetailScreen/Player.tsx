@@ -9,7 +9,7 @@ const Player = ({ route }) => {
     // console.log(data)
     return (
         <View>
-            {/* <View style={{ width: '100%', height: '45%', backgroundColor:'#FF6600', position:'relative' }}> */}
+            <View style={{ width: '100%', height: '45%', backgroundColor:'#FF6600', position:'relative' }}>
                 {/* <Video
                     ref={videoNode}
                     style={{ width: '100%', height: '45%', backgroundColor:'black', position:'relative' }}
@@ -21,24 +21,24 @@ const Player = ({ route }) => {
                     controls={true}
                     source={{
                         uri: 
-                        // data.source_link
-                        'https://shree-data.s3.ap-south-1.amazonaws.com/Drugo%60tsav/Drugo%20tsav2/1080p.m3u8'
+                        data.source_link
+                        // 'https://shree-data.s3.ap-south-1.amazonaws.com/Drugo%60tsav/Drugo%20tsav2/1080p.m3u8'
 
                     }}
                     autoplay
                 /> */}
                 <View style={{ width: '100%', height: '45%', backgroundColor:'black', position:'relative' }}>
 
-                {/* <VideoPlayer
+                <VideoPlayer
                 //  streamUrl={data?.source_link}
                  defaultFullScreen={true}
                  autoPlay={true}
                  defaultResizeMode='Cover'
                 //  premium={episode?.premium}
                  premiumCheck={true}
-                /> */}
+                />
                 </View>
-            {/* </View> */}
+            </View>
             <ScrollView style={{ width: '100%', height: '55%', backgroundColor: 'black' }}>
                 <Text style={{ fontSize: 25, color: '#ff6600', paddingHorizontal: 10, paddingTop: 15, fontWeight: '800' }}>
                     {data.name}

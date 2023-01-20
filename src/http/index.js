@@ -44,12 +44,20 @@ export const getSinglePageData = (slug) => API.get(`/content?slug=${slug}`);
 export const getSubscriptions = () => API.get(`/subscriptions`);
 export const checkIsPrimium = () => API.get(`/subscription/check`);
 
+// payment endpoint
+export const checkout = (data) => API.post(`/payments/checkout`, data);
+export const verifyPayment = (data) => API.post(`/payments/verify`, data);
+
 // users endpoint
 export const deactivateAccount = () => API.delete(`/users`);
 
 
 // trending endpoint
 export const getTrending = () => API.get(`/trending/`);
+
+
+//splash Screen
+export const splashInfo = () => API.get(`/settings/app`);
 
 
 // PUT 

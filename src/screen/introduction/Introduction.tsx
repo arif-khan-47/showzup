@@ -5,6 +5,7 @@ import tw from 'twrnc'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useDispatch } from 'react-redux'
 import { checkLogin, logout } from '../../store/authReducer'
+import { splashInfo } from '../../http'
 
 const Introduction = ({ navigation }) => {
     const dispatch = useDispatch()
@@ -39,7 +40,24 @@ const Introduction = ({ navigation }) => {
     }, [])
 
 
-
+    const [data, setData] = useState([])
+    console.log(data)
+  
+    async function SplashInfo() {
+      // console.log('Getting all movies');
+      try {
+        const response = await splashInfo();
+        // console.log(response.data.data);
+        setData(response.data.data)
+      } catch (error) {
+  
+      }
+  
+    }
+  
+    useEffect(() => {
+        SplashInfo()
+    }, [])
     // const [timePassed, setTimePassed] = useState(false);
     // setTimeout(function () {
     //     // retrieveData();
@@ -54,9 +72,10 @@ const Introduction = ({ navigation }) => {
             
             <View style={tw`m-auto`}>
                 <Image
-                    style={[tw`w-80 h-30`]}
+                    style={[tw`w-80 h-50`]}
                     source={{
-                        uri: 'https://res.cloudinary.com/drtldr4nl/image/upload/v1672294964/showsup/showzup_logo_1_eouboh.png',
+                        uri: data?.logo
+                        // 'https://res.cloudinary.com/drtldr4nl/image/upload/v1672294964/showsup/showzup_logo_1_eouboh.png',
                     }}
                 />
             </View>

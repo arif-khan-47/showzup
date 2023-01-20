@@ -1,17 +1,30 @@
-import { ScrollView, StatusBar, Text, View, TouchableOpacity, Dimensions, Image, Pressable } from 'react-native';
+import { ScrollView, StatusBar, Text, View, TouchableOpacity, Dimensions, Image, Pressable, Linking, Platform } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useNavigation } from '@react-navigation/native';
+import navgiationStrings from '../../components/Constants/navgiationStrings';
+import { useDispatch, useSelector } from 'react-redux'
 import React, { useEffect, useState, useRef } from 'react'
-import Carousel from 'react-native-anchor-carousel'
-import { getSubscriptions } from '../../http'
+import Colors from '../../Styles/Colors';
+import Carousel from 'react-native-anchor-carousel';
+import RazorpayCheckout from 'react-native-razorpay';
+import { showMessage } from 'react-native-flash-message';
+import { RootState } from '../../components/Redux/store';
+import { checkout, getSubscriptions, verifyPayment } from '../../http'
 import tw from 'twrnc'
 
 
 
 const Subscription = () => {
-
+  const dispatch = useDispatch();
   const [fetchdata, setFetchdata] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const { subscriptions, status } = useSelector((state: RootState) => state.subscription)
   const navigation = useNavigation()
+  const { user, whoami: { isPremium } } = useSelector((state: RootState) => state.auth)
+  useEffect(() => {
+      dispatch(fetchSubscriptions() as any)
+      dispatch(whoamiFunc() as any)
+  }, []);
   const { width } = Dimensions.get('window')
 
   const carouselRef = useRef(null);
@@ -67,14 +80,102 @@ const Subscription = () => {
   }, [])
 
 
+
+
+
+
+  const verifyPaymentEntry = async (data) => {
+    try {
+        const response = await verifyPayment(data)
+        if (response.status === 200) {
+            navigation.navigate(navgiationStrings.MAIN as never)
+            // dispatch(setScreen(5))
+            showMessage({
+                message: 'Payment Successful',
+                type: 'success',
+                icon: 'success',
+                backgroundColor: Colors.primary,
+                color: Colors.white,
+                duration: 3000,
+                position: 'top',
+                animationDuration: 500,
+                floating: true,
+            })
+        }
+    } catch (error) {
+
+    }
+}
+
+const initPayment = (data, rozerpay_api_key, item) => {
+    var options = {
+        amount: data.amount,
+        currency: data.currency,
+        name: item.name,
+        description: item.description,
+        image: 'https://res.cloudinary.com/drtldr4nl/image/upload/v1672294964/showsup/showzup_logo_1_eouboh.png',
+        order_id: data.id,
+        key: rozerpay_api_key,
+        prefill: {
+            email: user.email,
+            contact: user.phone ? user.phone : '9191919191',
+        },
+        theme: { color: Colors.primary }
+    }
+    RazorpayCheckout.open(options).then((res) => {
+        // handle success
+        verifyPaymentEntry({
+            order_id: res.razorpay_order_id,
+            payment_id: res.razorpay_payment_id,
+            signature: res.razorpay_signature
+        });
+    }).catch((error) => {
+        // handle failure
+        showMessage({
+            message: 'Payment Failed. Please try again!',
+            type: "danger",
+            icon: "danger",
+            duration: 3000,
+            position: 'top',
+            animationDuration: 500,
+            floating: true,
+        });
+    });
+};
+
+const handlePayment = async (item: any) => {
+    setIsLoading(true)
+    try {
+        const response = await checkout({ subscriptionId: item._id })
+        const { data: { data, rozerpay_api_key } } = response
+        if (response.status === 201) {
+            initPayment(data, rozerpay_api_key, item);
+            setIsLoading(false)
+        }
+    } catch (error: any) {
+        showMessage({
+            message: error?.response?.data?.error?.message || 'Something went wrong. Please try again!',
+            type: "danger",
+            icon: "danger",
+            duration: 3000,
+            position: 'top',
+            animationDuration: 500,
+            floating: true,
+        });
+        setIsLoading(false)
+    }
+};
+
+    const substatus = false
+
   // const renderItem = ({ item, index }) => {
-  //   return (
-  //     <View>
-  //       <View
-  //         // style={tw`shadow-lg shadow-[#FF6600]`}
-  //         onPress={() => console.log('clicked')}
-  //       >
-  //         <View style={[{
+    //   return (
+      //     <View>
+      //       <View
+      //         // style={tw`shadow-lg shadow-[#FF6600]`}
+      //         onPress={() => console.log('clicked')}
+      //       >
+      //         <View style={[{
   //           width: 200,
   //           height: 220,
   //           borderRadius: 15,
@@ -157,12 +258,12 @@ const Subscription = () => {
             }}>{item.description}</Text>
 
             {
-              item.status ?
+              substatus ?
                 <TouchableOpacity disabled style={{ marginVertical: 10, paddingVertical: 10, backgroundColor: '#ff6600', borderRadius: 25, borderWidth:2, borderColor:'white', opacity:0.5 }}>
                   <Text style={{ color: 'white', textAlign: 'center', fontWeight: '700', fontSize: 18, }}>Sunscribed</Text>
                 </TouchableOpacity> 
                 :
-                <TouchableOpacity style={{ marginVertical: 10, paddingVertical: 10, backgroundColor: 'white', borderRadius: 25 }}>
+                <TouchableOpacity onPress={() => { Platform.OS === 'android' ? handlePayment(item) : Linking.openURL('https://futuretv.app/subscribe')}} style={{ marginVertical: 10, paddingVertical: 10, backgroundColor: 'white', borderRadius: 25 }}>
                   <Text style={{ color: '#ff6600', textAlign: 'center', fontWeight: '700', fontSize: 18 }}>Sunscribe</Text>
                 </TouchableOpacity>
             }
