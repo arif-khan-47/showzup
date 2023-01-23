@@ -51,6 +51,11 @@ export const verifyPayment = (data) => API.post(`/payments/verify`, data);
 // users endpoint
 export const deactivateAccount = () => API.delete(`/users`);
 
+// watchtime endpoint
+export const addWatchTime = (data) => API.post(`/watchtime`, data);
+
+// view count endpoint
+export const countView = (data) => API.post(`/views/count`, data);
 
 // trending endpoint
 export const getTrending = () => API.get(`/trending/`);
