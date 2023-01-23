@@ -19,8 +19,7 @@ const Introduction = () => {
                 console.log(value);
                 // dispatch({type:"login"})
                 dispatch(checkLogin())
-
-
+                // console.log('is done')
             } else {
                 navigation.navigate('LoginHero' as never);
                 console.log("token not set")

@@ -11,10 +11,7 @@ const rootReducer = createSlice({
     initialState,
     reducers: {
         checkLogin(state) {
-
             state.isAuthenticated = true;
-
-
         },
         logout(state) {
             // state.user = null;
