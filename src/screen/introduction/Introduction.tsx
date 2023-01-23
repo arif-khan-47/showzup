@@ -1,6 +1,5 @@
-import { View, Text, Image, StatusBar } from 'react-native'
-import React from 'react'
-import { useEffect, useState } from 'react'
+import { View, Image, StatusBar } from 'react-native'
+import React, { useEffect, useState }  from 'react'
 import tw from 'twrnc'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useDispatch } from 'react-redux'
@@ -15,9 +14,8 @@ const Introduction = () => {
     const retrieveData = async () => {
         try {
             const value = await AsyncStorage.getItem('accessToken');
-            if (value !== null) {
+            if (value) {
                 console.log(value);
-                // dispatch({type:"login"})
                 dispatch(checkLogin())
                 // console.log('is done')
             } else {
@@ -33,7 +31,7 @@ const Introduction = () => {
     useEffect(() => {
         const time = setTimeout(() => {
             retrieveData();
-        }, 4000)
+        }, 5000)
         return () => {
             clearTimeout(time);
         }

@@ -16,7 +16,7 @@ import detailsSlice from './Slice/detailsSlice'
 import sectionSlice from './Slice/sectionSlice'
 import contantSlice from './Slice/contentSlice'
 import configSlice from './Slice/configSlice'
-import { rootReducer } from './Slice/rootReducer'
+import rootReducer from './Slice/authReducer'
 
 
 export const store = configureStore({
