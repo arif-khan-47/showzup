@@ -14,10 +14,10 @@ interface ISingleMovieDetailProps{
     params: {
       // name: string;
       // description: string;
-      name: string;
-      poster: string;
-      description: string;
-      cast: string;
+      name: string,
+      poster: string,
+      description: string,
+      cast: any,
 
     }
   }

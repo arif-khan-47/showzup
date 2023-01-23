@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react'
 import tw from 'twrnc'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useDispatch } from 'react-redux'
-import { checkLogin, logout } from '../../store/authReducer'
+import { checkLogin } from '../../store/authReducer'
 import { splashInfo } from '../../http'
-import {useNavigation} from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 
 const Introduction = () => {
     const navigation = useNavigation()
@@ -22,7 +22,6 @@ const Introduction = () => {
 
 
             } else {
-                // dispatch(logout())
                 navigation.navigate('LoginHero' as never);
                 console.log("token not set")
                 // dispatch({type:"logout"})
@@ -34,7 +33,7 @@ const Introduction = () => {
 
     useEffect(() => {
         const time = setTimeout(() => {
-        retrieveData();
+            retrieveData();
         }, 4000)
         return () => {
             clearTimeout(time);
@@ -44,19 +43,19 @@ const Introduction = () => {
 
     const [data, setData] = useState([])
     // console.log(data)
-  
+
     async function SplashInfo() {
-      // console.log('Getting all movies');
-      try {
-        const response = await splashInfo();
-        // console.log(response.data.data);
-        setData(response.data.data)
-      } catch (error) {
-  
-      }
-  
+        // console.log('Getting all movies');
+        try {
+            const response = await splashInfo();
+            // console.log(response.data.data);
+            setData(response.data.data)
+        } catch (error) {
+
+        }
+
     }
-  
+
     useEffect(() => {
         SplashInfo()
     }, [])
@@ -70,14 +69,13 @@ const Introduction = () => {
 
     return (
         <View style={tw`bg-black h-full w-full`}>
-            <StatusBar backgroundColor='black' barStyle={'default'}/>
-            
+            <StatusBar backgroundColor='black' barStyle={'default'} />
+
             <View style={tw`m-auto`}>
                 <Image
-                    style={[tw`w-80 h-50`]}
+                    style={[tw`w-60 h-30`]}
                     source={{
-                        uri: data?.logo
-                        // 'https://res.cloudinary.com/drtldr4nl/image/upload/v1672294964/showsup/showzup_logo_1_eouboh.png',
+                        uri: data?.logo || 'https://res.cloudinary.com/drtldr4nl/image/upload/v1672294964/showsup/showzup_logo_1_eouboh.png',
                     }}
                 />
             </View>
