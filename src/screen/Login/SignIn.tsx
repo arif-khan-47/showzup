@@ -9,7 +9,7 @@ import { Checkbox } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import tw from 'twrnc'
 import { useDispatch } from 'react-redux'
-import { checkLogin } from '../../store/authReducer';
+import { checkLogin } from '../../Redux/Slice/authReducer';
 
 
 const SignIn = ({ navigation }) => {

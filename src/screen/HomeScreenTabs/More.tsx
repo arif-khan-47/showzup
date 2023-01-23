@@ -1,7 +1,7 @@
 import { Image, Pressable, ScrollView, StatusBar, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import tw from 'twrnc'
-import { logout } from '../../store/authReducer';
+import { logout } from '../../Redux/Slice/authReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native';

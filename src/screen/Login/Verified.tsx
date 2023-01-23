@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import tw from 'twrnc'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from 'react-redux'
-import { checkLogin } from '../../store/authReducer';
+import { checkLogin } from '../../Redux/Slice/authReducer';
 
 
 

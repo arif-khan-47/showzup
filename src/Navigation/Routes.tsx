@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import tw from 'twrnc'
 import AuthStack from './AuthStack';
 import HomeStack from './HomeStack';
-import { RootState } from '../store/store';
+import { RootState } from '../Redux/store';
 
 const Routes = () => {
     const Stack = createStackNavigator();

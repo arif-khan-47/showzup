@@ -1,7 +1,7 @@
 import { ScrollView, StatusBar, Text, View, TouchableOpacity, Dimensions, Image, Pressable, Linking, Platform } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useNavigation } from '@react-navigation/native';
-import navgiationStrings from '../../components/Constants/navgiationStrings';
+import navgiationStrings from '../../Constants/navgiationStrings';
 import { useDispatch, useSelector } from 'react-redux'
 import React, { useEffect, useState, useRef } from 'react'
 import { fetchSubscriptions, ISubscriptionState } from '../../components/Redux/Slice/subscriptionSlice'
