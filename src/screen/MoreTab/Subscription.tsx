@@ -4,13 +4,14 @@ import { useNavigation } from '@react-navigation/native';
 import navgiationStrings from '../../components/Constants/navgiationStrings';
 import { useDispatch, useSelector } from 'react-redux'
 import React, { useEffect, useState, useRef } from 'react'
+import { fetchSubscriptions, ISubscriptionState } from '../../components/Redux/Slice/subscriptionSlice'
 import Colors from '../../Styles/Colors';
 import Carousel from 'react-native-anchor-carousel';
 import RazorpayCheckout from 'react-native-razorpay';
 import { showMessage } from 'react-native-flash-message';
 import { RootState } from '../../components/Redux/store';
 import { checkout, getSubscriptions, verifyPayment } from '../../http'
-import tw from 'twrnc'
+import { whoamiFunc } from '../../components/Redux/Slice/authSlice';
 
 
 

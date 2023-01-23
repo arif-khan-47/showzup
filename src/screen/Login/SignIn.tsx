@@ -168,7 +168,7 @@ const SignIn = ({ navigation }) => {
                                         uri: 'https://res.cloudinary.com/drtldr4nl/image/upload/v1672294964/showsup/showzup_logo_1_eouboh.png',
                                     }}
                                 />
-                                <Text style={tw`text-2xl text-white text-center`}>LET'S SIGN IN</Text>
+                                <Text style={tw`text-xl text-white text-center`}>LET'S SIGN IN</Text>
                             </View>
                         </View>
 

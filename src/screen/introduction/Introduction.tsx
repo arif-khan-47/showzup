@@ -6,8 +6,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useDispatch } from 'react-redux'
 import { checkLogin, logout } from '../../store/authReducer'
 import { splashInfo } from '../../http'
+import {useNavigation} from '@react-navigation/native'
 
-const Introduction = ({ navigation }) => {
+const Introduction = () => {
+    const navigation = useNavigation()
     const dispatch = useDispatch()
 
     const retrieveData = async () => {
@@ -21,7 +23,7 @@ const Introduction = ({ navigation }) => {
 
             } else {
                 // dispatch(logout())
-                navigation.navigate('LoginHero');
+                navigation.navigate('LoginHero' as never);
                 console.log("token not set")
                 // dispatch({type:"logout"})
             }
@@ -41,7 +43,7 @@ const Introduction = ({ navigation }) => {
 
 
     const [data, setData] = useState([])
-    console.log(data)
+    // console.log(data)
   
     async function SplashInfo() {
       // console.log('Getting all movies');

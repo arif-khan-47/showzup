@@ -2,13 +2,14 @@ import { Dimensions, Image, Pressable, ScrollView, Text, View, TouchableOpacity 
 import React, { useEffect, useState, useRef } from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Carousel from 'react-native-anchor-carousel'
-import { allMovies, getTrending } from '../../http'
-import tw from 'twrnc'
+import { getTrending } from '../../http'
 import MovieTabSquare from '../../components/Cards/MovieTabSquare'
+import { useNavigation } from '@react-navigation/native'
 
 
 
-const Search = ({ navigation }) => {
+const Search = () => {
+  const navigation = useNavigation();
 
   const [data, setData] = useState([])
   // console.log(data)
@@ -48,7 +49,7 @@ const Search = ({ navigation }) => {
       <View>
         <TouchableOpacity
           // style={tw`shadow-lg shadow-[#FF6600]`}
-          onPress={() => navigation.navigate("SingleMovie", { name: item.name, poster: item.poster, description: item.description, cast: item.cast, seasons:item.seasons, slug: item.slug})}
+          onPress={() => navigation.navigate("SingleMovie" as never, { name: item.name, poster: item.poster, description: item.description, cast: item.cast, seasons: item.seasons, slug: item.slug } as never)}
         >
           <Image source={{ uri: item.poster }} style={[{
             width: 200,
@@ -74,7 +75,7 @@ const Search = ({ navigation }) => {
 
   return (
     <View style={{ width: '100%', height: '100%', backgroundColor: 'black', position: 'relative' }}>
-      <Pressable onPress={() => navigation.navigate('SearchPage')} style={{ backgroundColor: 'white', height: '8%', borderRadius: 25, marginVertical: '2%', marginHorizontal: 10, flexDirection: 'row', justifyContent: "space-between", paddingHorizontal: '5%' }}>
+      <Pressable onPress={() => navigation.navigate('SearchPage' as never)} style={{ backgroundColor: 'white', height: '8%', borderRadius: 25, marginVertical: '2%', marginHorizontal: 10, flexDirection: 'row', justifyContent: "space-between", paddingHorizontal: '5%' }}>
         <Text style={{ marginTop: 'auto', marginBottom: "auto", fontSize: 15 }}>Search Movies, Shows Etc</Text>
         <Ionicons name='search' style={{ fontSize: 25, marginTop: 'auto', marginBottom: "auto", color: '#FF6600' }} />
       </Pressable>
@@ -116,7 +117,7 @@ const Search = ({ navigation }) => {
 
         <View style={{ backgroundColor: 'rgba(211, 211, 211, 0.5)', width: '100%', borderTopLeftRadius: 15, borderTopRightRadius: 15, }}>
           <Text style={{ paddingHorizontal: 10, paddingTop: 15, color: '#FF6600', fontWeight: '800', fontSize: 18 }}>Top Search</Text>
-          <MovieTabSquare data={data} />
+          <MovieTabSquare title='' data={data} />
         </View>
       </ScrollView>
 

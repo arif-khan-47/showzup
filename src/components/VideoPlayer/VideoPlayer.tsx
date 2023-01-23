@@ -6,22 +6,22 @@ import { useNavigation } from '@react-navigation/native'
 import Orientation, { PORTRAIT, LANDSCAPE } from "react-native-orientation-locker";
 import Slider from '@react-native-community/slider';
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import Colors from '../../Styles/Colors';
+import Colors from '../../Styles/Colors'
 import { BackArrowIcon, BackwardIcon, ForwardIcon, FullscreenIcon, PauseIcon, PlayIcon } from '../PlayerControls/PlayerControls'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { useDispatch, useSelector } from 'react-redux'
 import API, { addWatchTime, countView } from '../../http'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-// import { setBandwidth, setIsFullScreen, setIsGoBack, setIsLandScape, setResolution, setShowPlanPopup } from '../../Redux/Slice/playerSlice'
+import { setBandwidth, setIsFullScreen, setIsGoBack, setIsLandScape, setResolution, setShowPlanPopup } from '../Redux/Slice/playerSlice'
 import tw from 'twrnc'
-// import { PremiumICon } from '../../Icons'
-// import navgiationStrings from '../../Constants/navgiationStrings'
-// import { callUpdateHistory } from '../../Redux/Slice/historySlice'
-// import { RootState } from '../../Redux/store'
+import { PremiumICon } from '../Icons'
+import navgiationStrings from '../Constants/navgiationStrings'
+import { callUpdateHistory } from '../Redux/Slice/historySlice'
+import { RootState } from '../../Redux/store'
 import { MediaControlsView } from '.'
 import { getM3U8Resolutions } from './PlayerUtils'
-// import { format as prettyFormat } from 'pretty-format'
-// import { IContent } from '../../Redux/Slice/contentSlice'
+import { format as prettyFormat } from 'pretty-format'
+import { IContent } from '../../Redux/Slice/contentSlice'
 
 
 interface VideoPlayerProps {
@@ -39,7 +39,7 @@ interface VideoPlayerProps {
         currentSeason: string | null,
         currentEpisode: string | null,
         thumbnail?: string
-        // episode?: IContent['episode'] | null
+        episode?: IContent['episode'] | null
     }
 }
 
@@ -53,14 +53,14 @@ const VideoPlayer = ({
     streamContentInfo
 }: VideoPlayerProps) => {
     const navigation = useNavigation()
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
     // useRef
     const videoRef = useRef(null)
     // useState
     const [currentTime, setCurrentTime] = useState(0)
-    // const { isPrimium } = useSelector((state: RootState) => state.subscription)
-    // const { isFullScreen, showPlanPopup, isLandScape, streamUrl: streamUrlPlayer, episodeId, isGoBack, bandwidth } = useSelector((state: RootState) => state.player)
-    // const { user } = useSelector((state: RootState) => state.auth)
+    const { isPrimium } = useSelector((state: RootState) => state.subscription)
+    const { isFullScreen, showPlanPopup, isLandScape, streamUrl: streamUrlPlayer, episodeId, isGoBack, bandwidth } = useSelector((state: RootState) => state.player)
+    const { user } = useSelector((state: RootState) => state.auth)
     const [played, setPlayed] = useState(0)
     const [url, setUrl] = useState<string>(streamContentInfo?.episode ? streamContentInfo?.episode.source_link : streamSource)
     const [urlhttp, setUrlhttp] = useState<string>(streamContentInfo?.episode ? streamContentInfo?.episode.source_link : streamSource)
@@ -73,16 +73,17 @@ const VideoPlayer = ({
 
 
 
+    
     // update current time to history
     const updateCurrentTime = async () => {
-        if (!streamContentInfo) return 
-        // dispatch(callUpdateHistory({
-        //     id: streamContentInfo.id,
-        //     //type: streamContentInfo.type === 'movie' ? 'Content' : 'Episode',
-        //     currentTime: await AsyncStorage.getItem('currentTime') as any,
-        //     current_season: streamContentInfo.episode?.season_id?._id,
-        //     current_episode: streamContentInfo.episode?._id,
-        // }) as any)
+        if (!streamContentInfo) return
+        dispatch(callUpdateHistory({
+            id: streamContentInfo.id,
+            //type: streamContentInfo.type === 'movie' ? 'Content' : 'Episode',
+            currentTime: await AsyncStorage.getItem('currentTime') as any,
+            current_season: streamContentInfo.episode?.season_id?._id,
+            current_episode: streamContentInfo.episode?._id,
+        }) as any)
     }
 
     // get video quality from m3u8 master playlist
@@ -125,24 +126,24 @@ const VideoPlayer = ({
     const handleOrientationChange = (goBack?: string) => {
         if (goBack === 'goBack') {
             Orientation.lockToPortrait()
-            // dispatch(setIsLandScape(false))
+            dispatch(setIsLandScape(false))
             setFullscreen(false)
-            // dispatch(setIsFullScreen(false))
+            dispatch(setIsFullScreen(false))
             navigation.goBack()
-            // dispatch(setIsGoBack(false))
+            dispatch(setIsGoBack(false))
             return
         }
         if (orientation === 'PORTRAIT') {
-            // dispatch(setIsLandScape(true))
+            dispatch(setIsLandScape(true))
             setOrientation(LANDSCAPE)
             setFullscreen(true)
-            // dispatch(setIsFullScreen(true))
+            dispatch(setIsFullScreen(true))
             Orientation.lockToLandscape();
         } else {
-            // dispatch(setIsLandScape(false))
+            dispatch(setIsLandScape(false))
             setOrientation(PORTRAIT)
             setFullscreen(false)
-            // dispatch(setIsFullScreen(false))
+            dispatch(setIsFullScreen(false))
             Orientation.lockToPortrait();
         }
     }
@@ -151,7 +152,7 @@ const VideoPlayer = ({
         if (defaultFullScreen) {
             setOrientation(LANDSCAPE)
             setFullscreen(true)
-            // dispatch(setIsFullScreen(true))
+            dispatch(setIsFullScreen(true))
             Orientation.lockToLandscape();
         }
     }, [defaultFullScreen])
@@ -160,12 +161,10 @@ const VideoPlayer = ({
         if (isLandScape) {
             setOrientation(LANDSCAPE)
             setFullscreen(true)
-            // dispatch(setIsFullScreen(true))
+            dispatch(setIsFullScreen(true))
             Orientation.lockToLandscape();
         }
-    // }, [isLandScape])
-}, [])
-
+    }, [isLandScape])
 
 
     // handle video play and pause
@@ -180,7 +179,7 @@ const VideoPlayer = ({
                 // now check user is primium or not
                 if (!isPrimium?.status) {
                     // navigate to subscription screen
-                    // navigation.replace(navgiationStrings.SUBCRIPTION)
+                    navigation.replace(navgiationStrings.SUBCRIPTION)
                 } else {
                     if (streamContentInfo?.episode.source_link) {
                         setUrl(streamContentInfo?.episode.source_link)
@@ -365,10 +364,10 @@ const VideoPlayer = ({
     }
 
     const Upgrade = () => {
-        // dispatch(setShowPlanPopup(false))
+        dispatch(setShowPlanPopup(false))
         setOrientation(PORTRAIT)
         setFullscreen(false)
-        // dispatch(setIsFullScreen(false))
+        dispatch(setIsFullScreen(false))
         Orientation.lockToPortrait();
         navigation.replace(navgiationStrings.SUBCRIPTION)
     }
@@ -376,23 +375,23 @@ const VideoPlayer = ({
 
     const backAction = () => {
         if (defaultFullScreen) {
-            // dispatch(setShowPlanPopup(false))
-            // dispatch(setIsLandScape(false))
+            dispatch(setShowPlanPopup(false))
+            dispatch(setIsLandScape(false))
             setOrientation(PORTRAIT)
             setFullscreen(false)
-            // dispatch(setIsFullScreen(false))
+            dispatch(setIsFullScreen(false))
             Orientation.lockToPortrait();
         } else {
 
             if (fullscreen) {
                 setOrientation(PORTRAIT)
                 setFullscreen(false)
-                // dispatch(setIsFullScreen(false))
-                // dispatch(setIsLandScape(false))
+                dispatch(setIsFullScreen(false))
+                dispatch(setIsLandScape(false))
                 Orientation.lockToPortrait();
             } else {
                 navigation.goBack()
-                // dispatch(setIsGoBack(false))
+                dispatch(setIsGoBack(false))
             }
         }
         return true
@@ -458,9 +457,7 @@ const VideoPlayer = ({
         } else {
             return ['13%', '13%']
         }
-    // }, [isFullScreen])
-}, [])
-
+    }, [isFullScreen])
 
     // callbacks
     const settingHandlePresentModalPress = useCallback(() => {
@@ -483,9 +480,7 @@ const VideoPlayer = ({
         } else {
             return ['25%', '50%']
         }
-    // }, [isFullScreen])
-}, [])
-
+    }, [isFullScreen])
 
     // callbacks
     const handlePresentModalPress = useCallback(() => {
@@ -711,7 +706,7 @@ const VideoPlayer = ({
                                     settingHandleClose()
                                     videoQualityHandleClose()
                                     //setResolution(item)
-                                    // dispatch(setBandwidth(item.bitrate))
+                                    dispatch(setBandwidth(item.bitrate))
                                     setActiveVideoQuality(index)
 
                                 }}>
@@ -725,7 +720,7 @@ const VideoPlayer = ({
                         onPress={() => {
                             settingHandleClose()
                             videoQualityHandleClose()
-                            // dispatch(setBandwidth(undefined))
+                            dispatch(setBandwidth(undefined))
                             setActiveVideoQuality('auto')
                         }}>
                         <Text style={activeVideoQuality === 'auto' ? styles.settingTitleActive : styles.settingTitle}>Auto</Text>

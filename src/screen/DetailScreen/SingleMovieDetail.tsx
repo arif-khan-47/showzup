@@ -9,8 +9,23 @@ import ReadMore from '@fawazahmed/react-native-read-more';
 
 
 const { width, height } = Dimensions.get('window');
+interface ISingleMovieDetailProps{
+  route: {
+    params: {
+      // name: string;
+      // description: string;
+      name: string;
+      poster: string;
+      description: string;
+      cast: string;
 
-const SingleMovieDetail = ({ route, navigation }) => {
+    }
+  }
+}
+
+
+const SingleMovieDetail = ({ route }:ISingleMovieDetailProps) => {
+  const navigation = useNavigation();
   const { name, poster, description, cast } = route.params;
 
   return (
