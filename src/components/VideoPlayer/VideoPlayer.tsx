@@ -16,7 +16,7 @@ import { setBandwidth, setIsFullScreen, setIsGoBack, setIsLandScape, setResoluti
 import tw from 'twrnc'
 import { PremiumICon } from '../../Icons'
 import navgiationStrings from '../../Constants/navgiationStrings'
-import { callUpdateHistory } from '../Redux/Slice/historySlice'
+import { callUpdateHistory } from '../../Redux/Slice/historySlice'
 import { RootState } from '../../Redux/store'
 import { MediaControlsView } from '.'
 import { getM3U8Resolutions } from './PlayerUtils'
