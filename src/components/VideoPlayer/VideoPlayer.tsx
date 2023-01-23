@@ -58,7 +58,8 @@ const VideoPlayer = ({
     const videoRef = useRef(null)
     // useState
     const [currentTime, setCurrentTime] = useState(0)
-    const { isPrimium } = useSelector((state: RootState) => state.subscription)
+    // const { isPrimium } = useSelector((state: RootState) => state.subscription)
+    const isPrimium = true;
     const { isFullScreen, showPlanPopup, isLandScape, streamUrl: streamUrlPlayer, episodeId, isGoBack, bandwidth } = useSelector((state: RootState) => state.player)
     const { user } = useSelector((state: RootState) => state.auth)
     const [played, setPlayed] = useState(0)
@@ -73,7 +74,6 @@ const VideoPlayer = ({
 
 
 
-    
     // update current time to history
     const updateCurrentTime = async () => {
         if (!streamContentInfo) return
