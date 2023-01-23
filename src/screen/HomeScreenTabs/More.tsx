@@ -1,11 +1,6 @@
 import { Image, Pressable, ScrollView, StatusBar, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import tw from 'twrnc'
-import ProfileHeader from '../../components/UserProfile/ProfileHeader';
-import Profile, { ProfileButtons } from '../../components/UserProfile/FriendProfileInfo';
-import Entypo from 'react-native-vector-icons/Entypo';
-import { BottomSheetModal, BottomSheetModalProvider, } from '@gorhom/bottom-sheet';
-import Ionicons from 'react-native-vector-icons/Ionicons'
 import { logout } from '../../store/authReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useDispatch } from 'react-redux'
@@ -60,7 +55,7 @@ const More = () => {
         </View>
 
 
-        <TouchableOpacity onPress={()=>navigation.navigate('Subscription')} style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
+        <TouchableOpacity onPress={()=>navigation.navigate('Subscription' as never)} style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
           <Text style={{ color: 'white', fontSize: 18 }}>Plans</Text>
         </TouchableOpacity>
 
@@ -74,24 +69,24 @@ const More = () => {
         
 
         <View style={{borderBottomWidth: 0.5, borderTopWidth: 0.5, borderColor: 'white' }}>      
-        <TouchableOpacity onPress={()=>navigation.navigate('Settings')} style={{ paddingHorizontal: 10, paddingVertical: 15,}}>
+        <TouchableOpacity onPress={()=>navigation.navigate('Settings' as never)} style={{ paddingHorizontal: 10, paddingVertical: 15,}}>
           <Text style={{ color: 'white', fontSize: 18 }}>Settings</Text>
         </TouchableOpacity>
         </View>
 
-        <TouchableOpacity onPress={()=>navigation.navigate('TermConditions')} style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
+        <TouchableOpacity onPress={()=>navigation.navigate('TermConditions' as never)} style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
           <Text style={{ color: 'white', fontSize: 18 }}>Terms & Conditions</Text>
         </TouchableOpacity>
 
 
-        <TouchableOpacity onPress={()=>navigation.navigate('Privecy')} style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
+        <TouchableOpacity onPress={()=>navigation.navigate('Privecy' as never)} style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
           <Text style={{ color: 'white', fontSize: 18 }}>Privacy Policy</Text>
         </TouchableOpacity>
         
-        <TouchableOpacity onPress={()=>navigation.navigate('HelpAndSupport')} style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
+        <TouchableOpacity onPress={()=>navigation.navigate('HelpAndSupport' as never)} style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
           <Text style={{ color: 'white', fontSize: 18 }}>Help Center</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>navigation.navigate('About')} style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
+        <TouchableOpacity onPress={()=>navigation.navigate('About' as never)} style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
           <Text style={{ color: 'white', fontSize: 18 }}>About Us</Text>
         </TouchableOpacity>
 
@@ -105,64 +100,7 @@ const More = () => {
         </View>
 
       </ScrollView>
-      {/* <BottomSheetModalProvider>
-        <StatusBar barStyle={'dark-content'} backgroundColor={'black'} />
-        <View style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
-          <View style={{ paddingVertical: 12 }}>
-            <ProfileHeader username={data.username} onPress={handlePresentModalPress} />
-          </View>
-          <View style={tw`h-[1px] bg-gray-200`}></View>
-          <View style={{ width: '100%' }}>
-            <Profile
-              username={data.username}
-              name={data.name}
-              avatar='https://img.icons8.com/fluency-systems-filled/144/FF4D67/guest-male.png'
-              follower={data?.followers?.length}
-              following={data?.followings?.length}
-              posts={data?.posts?.length}
-
-            />
-          </View>
-          <ProfileButtons id={0} username='arif_khan' avatar='https://img.icons8.com/fluency-systems-filled/144/FF4D67/guest-male.png' />
-          <View>
-            <Text style={{ padding: 10, letterSpacing: 1, fontSize: 14 }}>Story Highlights</Text>
-            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
-              {circle}
-            </ScrollView>
-          </View>
-
-          <BottomSheetModal
-            ref={bottomSheetModalRef}
-            index={1}
-            snapPoints={snapPoints}
-            onChange={handleSheetChanges}
-
-          >
-            <Pressable style={{ width: '100%', height: 50, justifyContent: 'center', alignItems: 'center' }} android_ripple={{ color: 'gray' }}>
-              <View style={{ width: '90%', height: 45, flexDirection: 'row', alignItems: 'center' }}>
-                <Ionicons name='ios-settings-sharp' size={30} color={'#FF4D67'} />
-                <Text style={[{ fontSize: 25, paddingLeft: 5, color: '#FF4D67' }]}>settings</Text>
-              </View>
-            </Pressable>
-            <Pressable style={{ width: '100%', height: 50, justifyContent: 'center', alignItems: 'center' }} android_ripple={{ color: 'gray' }}>
-              <View style={{ width: '90%', height: 45, flexDirection: 'row', alignItems: 'center' }}>
-                <Ionicons name='bookmark' size={30} color={'#FF4D67'} />
-                <Text style={[{ fontSize: 25, paddingLeft: 5, color: '#FF4D67' }]}>Saved</Text>
-              </View>
-            </Pressable>
-            <Pressable style={{ width: '100%', height: 50, justifyContent: 'center', alignItems: 'center' }} android_ripple={{ color: 'gray' }} onPress={loggingOut}>
-              <View style={{ width: '90%', height: 45, flexDirection: 'row', alignItems: 'center' }}>
-                <Ionicons name='log-out-outline' size={30} color={'#FF4D67'} />
-                <Text style={[{ fontSize: 25, paddingLeft: 5, color: '#FF4D67' }]}>Logout</Text>
-              </View>
-            </Pressable>
-
-          </BottomSheetModal>
-        </View>
-      </BottomSheetModalProvider> */}
-
-
-
+      
     </>
 
   )
