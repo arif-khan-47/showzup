@@ -21,7 +21,7 @@ const Subscription = () => {
   const [isLoading, setIsLoading] = useState(false)
   const { subscriptions, status } = useSelector((state: RootState) => state.subscription)
   const navigation = useNavigation()
-  const { user, whoami: { isPremium } } = useSelector((state: RootState) => state.auth)
+  // const { user, whoami: { isPremium } } = useSelector((state: RootState) => state.auth)
   useEffect(() => {
       dispatch(fetchSubscriptions() as any)
       dispatch(whoamiFunc() as any)
