@@ -12,7 +12,7 @@ import { RootState } from '../Redux/store';
 const Routes = () => {
     const Stack = createStackNavigator();
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated)
-    console.log('isAuthenticated', isAuthenticated)
+    console.log('Authenticated = ',isAuthenticated)
     // const isAuthenticated = false;
     // const isAuthenticated = true;
     return (
